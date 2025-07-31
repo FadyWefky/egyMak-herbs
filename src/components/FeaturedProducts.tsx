@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Star, ShoppingCart, Eye } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../contexts/useLanguage';
 
 const FeaturedProducts: React.FC = () => {
   const { t, language } = useLanguage();
@@ -119,9 +119,7 @@ const FeaturedProducts: React.FC = () => {
                   <button className="w-10 h-10 bg-card rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200">
                     <Eye className="w-4 h-4" />
                   </button>
-                  <button className="w-10 h-10 bg-card rounded-full flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors duration-200">
-                    <ShoppingCart className="w-4 h-4" />
-                  </button>
+                 
                 </div>
               </div>
 
@@ -151,9 +149,9 @@ const FeaturedProducts: React.FC = () => {
                   )}
                 </div>
 
-                <button className="w-full bg-secondary hover:bg-primary hover:text-primary-foreground text-foreground py-2 rounded-lg transition-all duration-300 font-medium">
+                {/* <button className="w-full bg-secondary hover:bg-primary hover:text-primary-foreground text-foreground py-2 rounded-lg transition-all duration-300 font-medium">
                   {t('addToCart')}
-                </button>
+                </button> */}
               </div>
             </div>
           ))}

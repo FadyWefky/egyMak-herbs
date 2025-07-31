@@ -11,13 +11,39 @@ interface LanguageContextType {
 const translations = { en, ar, fr };
 
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+export const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState('en');
+  // Initialize language from localStorage or default to 'en'
+  const [language, setLanguageState] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('site_language') || 'en';
+    }
+    return 'en';
+  });
 
+  // Persist language to localStorage
+  const setLanguage = (lang: string) => {
+    setLanguageState(lang);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('site_language', lang);
+    }
+  };
+
+  // Support nested keys like 'getintouch.title'
   const t = (key: string): string => {
-    return translations[language as keyof typeof translations]?.[key as keyof typeof translations.en] || key;
+    if (typeof key !== 'string') return '';
+    const keys = key.split('.');
+    let value: unknown = translations[language as keyof typeof translations];
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = (value as Record<string, unknown>)[k];
+      } else {
+        return key;
+      }
+    }
+    return typeof value === 'string' ? value : key;
   };
 
   return (
@@ -27,10 +53,3 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   );
 };
 
-export const useLanguage = () => {
-  const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
-  }
-  return context;
-};

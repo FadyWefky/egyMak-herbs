@@ -42,7 +42,6 @@ const Index = () => {
             </Layout>
           }
         />
-        {/* Add more routes as needed */}
       </Routes>
     </Router>
   );

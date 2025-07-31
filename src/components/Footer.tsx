@@ -1,6 +1,6 @@
 import React from 'react';
 import { Leaf, Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../contexts/useLanguage';
 
 const Footer: React.FC = () => {
   const { t, language } = useLanguage();
@@ -125,7 +125,7 @@ const Footer: React.FC = () => {
                 <a
                   key={index}
                   href={social.href}
-                  className={`w-10 h-10 bg-primary-foreground/10 rounded-full flex items-center justify-center transition-all duration-300 ${social.color} hover:scale-110`}
+                  className={`w-10 h-10 bg-primary-foreground/10 rounded-full ml-5 flex items-center justify-center transition-all duration-300 ${social.color} hover:scale-110`}
                 >
                   <social.icon className="w-5 h-5" />
                 </a>

@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useLanguage } from "../contexts/LanguageContext";
+import { useLanguage } from "../contexts/useLanguage";
 import aboutImage from "../assets/about.jpeg"; 
 
 const aboutVariants = {
@@ -58,7 +58,7 @@ export default function About() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={paperVariants}
-              className="relative bg-white/90 border border-green-200 shadow-xl rounded-2xl my-4 px-4 py-6 text-lg text-gray-800 backdrop-blur-lg overflow-hidden"
+              className="relative bg-white/50 border border-green-200 shadow-xl rounded-2xl my-4 px-4 py-6 text-lg text-cyan-800 backdrop-blur-lg overflow-hidden"
               style={{ zIndex: 10 - i, boxShadow: `0 8px 32px 0 rgba(34,197,94,0.12)` }}
             >
               <span className="absolute left-4 top-4 w-8 h-8 bg-green-100 rounded-full shadow-inner -rotate-12" style={{ zIndex: -1, opacity: 0.7 }} />

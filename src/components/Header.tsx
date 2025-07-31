@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X, Leaf } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import { useLanguage } from '../contexts/useLanguage';
 import LanguageSwitcher from './LanguageSwitcher';
 
 const Header: React.FC = () => {
@@ -37,16 +37,16 @@ const Header: React.FC = () => {
             <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center floating-herb">
               <Leaf className="w-5 h-5 text-primary-foreground" />
             </div>
-            <span className="text-xl font-bold herb-gradient-text">HerbMart</span>
+            <span className="text-xl font-bold herb-gradient-text">EgyMak</span>
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center space-x-8 ml-6">
             {navigationItems.map((item) => (
               <a
                 key={item.key}
                 href={item.href}
-                className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group"
+                className="text-foreground hover:text-primary ml-6 transition-colors duration-300 font-medium relative group"
               >
                 {t(item.key)}
                 <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>

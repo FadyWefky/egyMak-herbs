@@ -35,7 +35,23 @@ export const fr = {
   aboutTitle: "À propos d'Egymak",
   aboutParagraph1: "Egymak est une entreprise leader dans le domaine des plantes aromatiques et médicinales, dédiée à fournir des produits naturels de haute qualité issus des riches terres agricoles d'Égypte. Engagée pour la durabilité et l'innovation, Egymak collabore avec des agriculteurs locaux pour garantir que les meilleures herbes et plantes atteignent les marchés mondiaux.",
   aboutParagraph2: "Notre mission est de promouvoir le bien-être et de soutenir des modes de vie sains en offrant des produits purs, biologiques et récoltés de manière éthique. Le portefeuille d'Egymak comprend des herbes séchées, des huiles essentielles et des tisanes, tous traités avec une technologie de pointe pour préserver leurs bienfaits naturels.",
-  aboutParagraph3: "Nous croyons en la transparence, la qualité et la satisfaction du client. Rejoignez-nous dans notre voyage pour apporter le meilleur de la nature égyptienne au monde."
+  aboutParagraph3: "Nous croyons en la transparence, la qualité et la satisfaction du client. Rejoignez-nous dans notre voyage pour apporter le meilleur de la nature égyptienne au monde.",
+  // Get In Touch Section
+  getintouch: {
+    title: "Contactez-nous",
+    subtitle: "Nous serions ravis d'avoir de vos nouvelles. Contactez-nous par l'un des moyens ci-dessous.",
+    location: "Emplacement",
+    address: "123 rue des Herbes, Le Caire, Égypte",
+    phone: "Téléphone",
+    phoneNumber: "+20 100 123 4567",
+    email: "E-mail",
+    emailAddress: "info@egymak.com",
+    facebook: "Facebook",
+    instagram: "Instagram",
+    twitter: "Twitter",
+    linkedin: "LinkedIn",
+    socialMedia: "Réseaux sociaux"
+  }
 };
 
 

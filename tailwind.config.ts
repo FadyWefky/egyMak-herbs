@@ -9,7 +9,13 @@ export default {
 		"./src/**/*.{ts,tsx}",
 	],
 	prefix: "",
-	theme: {
+  safelist: [
+	{
+	  pattern: /(bg|text|border|from|to|via)-(slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-(50|100|200|300|400|500|600|700|800|900|950)/,
+	  variants: ['hover', 'focus'],
+	},
+  ],
+  theme: {
 		container: {
 			center: true,
 			padding: '2rem',
