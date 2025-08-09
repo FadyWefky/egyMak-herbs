@@ -40,6 +40,9 @@ export const fr = {
   getintouch: {
     title: "Contactez-nous",
     subtitle: "Nous serions ravis d'avoir de vos nouvelles. Contactez-nous par l'un des moyens ci-dessous.",
+    subtitleMail: "Des questions ou des idées ? Nous serions ravis d'avoir de vos nouvelles ! Contactez-nous par e-mail et notre équipe vous répondra rapidement.",
+    subtitleLocation: "Venez nous voir !  Découvrez nos produits en personne et profitez d'un service exceptionnel sur place. Nous avons hâte de vous accueillir!",
+    subtitlePhone: "Prêt à commander ? Appelez-nous dès maintenant pour un achat rapide et facile ! Notre équipe est à votre disposition.",
     location: "Emplacement",
     address: "123 rue des Herbes, Le Caire, Égypte",
     phone: "Téléphone",

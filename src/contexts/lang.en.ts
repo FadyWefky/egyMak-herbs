@@ -40,6 +40,9 @@ export const en = {
   getintouch: {
     title: "Get in Touch",
     subtitle: "We'd love to hear from you. Reach out to us via any method below.",
+    subtitleMail: "Have questions or ideas? We'd love to hear from you! Reach out to us via email and our team will get back to you promptly.",
+    subtitleLocation: "Visit us today! See our products in person and experience exceptional service at our location. We can't wait to welcome you!",
+    subtitlePhone: "Ready to order? Call us now for a quick and easy purchase! Our team is standing by to assist you.",
     location: "Location",
     address: "123 Herbal St, Cairo, Egypt",
     phone: "Phone",
