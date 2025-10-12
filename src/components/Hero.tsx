@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
 import heroImage from '../assets/hero-herbs.jpg';
 
 const Hero: React.FC = () => {
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -54,12 +56,18 @@ const Hero: React.FC = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <button className="herb-button-primary group">
-              <span>{t('shopNow')}</span>
+            <button 
+              onClick={() => navigate('/products')}
+              className="herb-button-primary group"
+            >
+              <span>{language === 'ar' ? 'استكشف جميع الأعشاب' : 'Explore All Herbs'}</span>
               <ArrowRight className="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
             </button>
             
-            <button className="px-6 py-3 bg-card/20 backdrop-blur-sm text-primary-foreground border border-primary-foreground/30 rounded-lg font-medium transition-all duration-300 hover:bg-card/30 hover:scale-105">
+            <button 
+              onClick={() => navigate('/products')}
+              className="px-6 py-3 bg-card/20 backdrop-blur-sm text-primary-foreground border border-primary-foreground/30 rounded-lg font-medium transition-all duration-300 hover:bg-card/30 hover:scale-105"
+            >
               {t('learnMore')}
             </button>
           </div>
@@ -67,16 +75,22 @@ const Hero: React.FC = () => {
           {/* Stats */}
           <div className="grid grid-cols-3 gap-8 mt-16 max-w-md mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-1">500+</div>
-              <div className="text-sm text-primary-foreground/80">Premium Herbs</div>
+              <div className="text-3xl font-bold text-accent mb-1">30+</div>
+              <div className="text-sm text-primary-foreground/80">
+                {language === 'ar' ? 'أعشاب مميزة' : 'Premium Herbs'}
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-accent mb-1">50k+</div>
-              <div className="text-sm text-primary-foreground/80">Happy Customers</div>
+              <div className="text-3xl font-bold text-accent mb-1">4</div>
+              <div className="text-sm text-primary-foreground/80">
+                {language === 'ar' ? 'فئات رئيسية' : 'Main Categories'}
+              </div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-accent mb-1">100%</div>
-              <div className="text-sm text-primary-foreground/80">Organic</div>
+              <div className="text-sm text-primary-foreground/80">
+                {language === 'ar' ? 'طبيعي' : 'Natural'}
+              </div>
             </div>
           </div>
         </div>

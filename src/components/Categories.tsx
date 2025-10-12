@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ChefHat, Heart, Flower, Coffee } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
 
 const Categories: React.FC = () => {
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -103,7 +105,10 @@ const Categories: React.FC = () => {
 
         {/* Bottom CTA */}
         <div className={`text-center mt-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`} style={{ animationDelay: '800ms' }}>
-          <button className="herb-button-primary">
+          <button 
+            onClick={() => navigate('/categories')}
+            className="herb-button-primary"
+          >
             Explore All Categories
           </button>
         </div>

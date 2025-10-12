@@ -7,6 +7,12 @@ import Hero from '../components/Hero';
 import Categories from '../components/Categories';
 import FeaturedProducts from '../components/FeaturedProducts';
 import GetInTouch from '../components/GetInTouch';
+import HealthBenefits from '../components/HealthBenefits';
+import Testimonials from '../components/Testimonials';
+import HerbStats from '../components/HerbStats';
+import CategoriesPage from './Categories';
+import ProductsPage from './Products';
+import HealthBenefitsPage from './HealthBenefits';
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -30,6 +36,9 @@ const Index = () => {
               <About />
               <Categories />
               <FeaturedProducts />
+              <HealthBenefits />
+              <HerbStats />
+              <Testimonials />
               <GetInTouch />
             </Layout>
           }
@@ -39,6 +48,30 @@ const Index = () => {
           element={
             <Layout>
               <About />
+            </Layout>
+          }
+        />
+        <Route
+          path="/categories"
+          element={
+            <Layout>
+              <CategoriesPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <Layout>
+              <ProductsPage />
+            </Layout>
+          }
+        />
+        <Route
+          path="/health-benefits/:benefitId"
+          element={
+            <Layout>
+              <HealthBenefitsPage />
             </Layout>
           }
         />
