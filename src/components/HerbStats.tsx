@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Leaf, Globe, Award, Users, Clock, Star } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
 import { herbsData } from '../data/herbs';
+import placeholderImages from '../utils/placeholderImages';
+import LazyImage from './LazyImage';
 
 const HerbStats: React.FC = () => {
   const { language } = useLanguage();
@@ -25,7 +26,6 @@ const HerbStats: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Calculate statistics
   const totalHerbs = herbsData.length;
   const totalCategories = 4;
   const averageRating = (herbsData.reduce((sum, herb) => sum + herb.rating, 0) / totalHerbs).toFixed(1);
@@ -35,42 +35,42 @@ const HerbStats: React.FC = () => {
 
   const stats = [
     {
-      icon: Leaf,
+      image: placeholderImages['herb-varieties.jpg'],
       value: totalHerbs,
       label: language === 'ar' ? 'نوع عشب' : 'Herb Varieties',
       description: language === 'ar' ? 'مجموعة شاملة من الأعشاب الطبيعية' : 'Comprehensive collection of natural herbs',
       color: 'from-green-500 to-emerald-600'
     },
     {
-      icon: Globe,
+      image: placeholderImages['main-categories.jpg'],
       value: totalCategories,
       label: language === 'ar' ? 'فئة رئيسية' : 'Main Categories',
       description: language === 'ar' ? 'تصنيفات متنوعة للاستخدامات المختلفة' : 'Diverse categories for different uses',
       color: 'from-blue-500 to-cyan-600'
     },
     {
-      icon: Star,
+      image: placeholderImages['average-rating.jpg'],
       value: averageRating,
       label: language === 'ar' ? 'تقييم متوسط' : 'Average Rating',
       description: language === 'ar' ? 'جودة عالية معتمدة من العملاء' : 'High quality endorsed by customers',
       color: 'from-yellow-500 to-orange-600'
     },
     {
-      icon: Users,
+      image: placeholderImages['customer-reviews.jpg'],
       value: totalReviews.toLocaleString(),
       label: language === 'ar' ? 'تقييم عميل' : 'Customer Reviews',
       description: language === 'ar' ? 'آراء عملاء راضين حول العالم' : 'Satisfied customer opinions worldwide',
       color: 'from-purple-500 to-violet-600'
     },
     {
-      icon: Award,
+      image: placeholderImages['premium-herbs.jpg'],
       value: premiumHerbs,
       label: language === 'ar' ? 'عشب مميز' : 'Premium Herbs',
       description: language === 'ar' ? 'أعشاب حاصلة على شهادات الجودة' : 'Herbs with quality certifications',
       color: 'from-red-500 to-pink-600'
     },
     {
-      icon: Clock,
+      image: placeholderImages['egyptian-herbs.jpg'],
       value: egyptianHerbs,
       label: language === 'ar' ? 'عشب مصري' : 'Egyptian Herbs',
       description: language === 'ar' ? 'مزروع في الأراضي المصرية الخصبة' : 'Cultivated in fertile Egyptian lands',
@@ -86,7 +86,7 @@ const HerbStats: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`text-center mb-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}>
+        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
           <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
             {language === 'ar' ? 'إحصائيات الأعشاب' : 'Herb Statistics'}
           </h2>
@@ -104,20 +104,24 @@ const HerbStats: React.FC = () => {
           {stats.map((stat, index) => (
             <div
               key={index}
-              className={`group herb-card text-center ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}
-              style={{ animationDelay: isVisible ? `${index * 150}ms` : '0ms' }}
+              className={`group herb-card text-center scroll-animate delay-${(index + 1) * 100} ${
+                isVisible ? 'animate-slide-up' : ''
+              }`}
             >
-              {/* Icon */}
-              <div className="relative mb-6">
-                <div className={`w-20 h-20 bg-gradient-to-br ${stat.color} rounded-2xl mx-auto flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6`}>
-                  <stat.icon className="w-10 h-10 text-white" />
-                </div>
-                <div className="absolute inset-0 w-20 h-20 mx-auto bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
-              </div>
+                  {/* Image */}
+                  <div className="relative mb-6 overflow-hidden rounded-2xl">
+                    <LazyImage
+                      src={stat.image}
+                      alt={stat.label}
+                      className="w-full h-32 object-cover rounded-2xl transform transition-all duration-500 group-hover:scale-105"
+                      fallback={`data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiNmM2Y0ZjYiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzY2NjY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPlM8L3RleHQ+Cjwvc3ZnPgo=`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent rounded-2xl"></div>
+                  </div>
 
               {/* Content */}
               <div className="space-y-3">
-                <div className="text-4xl font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+                <div className="text-4xl font-bold text-foreground group-hover:text-primary transition-colors duration-300 counting-animation">
                   {stat.value}
                 </div>
                 <h3 className="text-xl font-semibold text-foreground">
@@ -135,7 +139,7 @@ const HerbStats: React.FC = () => {
         </div>
 
         {/* Bottom Info */}
-        <div className={`mt-16 text-center ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`} style={{ animationDelay: '900ms' }}>
+        <div className={`mt-16 text-center scroll-animate delay-900 ${isVisible ? 'animate-slide-up' : ''}`}>
           <div className="bg-card rounded-2xl p-8 max-w-4xl mx-auto shadow-lg">
             <h3 className="text-2xl font-bold text-foreground mb-4">
               {language === 'ar' ? 'لماذا تختار أعشاب Egymak؟' : 'Why Choose Egymak Herbs?'}

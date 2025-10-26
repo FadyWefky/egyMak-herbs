@@ -10,14 +10,14 @@ interface HerbModalProps {
 }
 
 const HerbModal: React.FC<HerbModalProps> = ({ herb, isOpen, onClose }) => {
-  const { language } = useLanguage();
+  const { language, getHerbName, getHerbDescription, getHerbBenefits, getHerbUses } = useLanguage();
 
   if (!isOpen || !herb) return null;
 
-  const name = language === 'ar' ? herb.nameAr : herb.name;
-  const description = language === 'ar' ? herb.descriptionAr : herb.description;
-  const benefits = language === 'ar' ? herb.benefitsAr : herb.benefits;
-  const uses = language === 'ar' ? herb.usesAr : herb.uses;
+  const name = getHerbName(herb);
+  const description = getHerbDescription(herb);
+  const benefits = getHerbBenefits(herb);
+  const uses = getHerbUses(herb);
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">

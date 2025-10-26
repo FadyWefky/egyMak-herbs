@@ -6,7 +6,7 @@ import { useLanguage } from '../contexts/useLanguage';
 import HerbModal from '../components/HerbModal';
 
 const Products: React.FC = () => {
-  const { language } = useLanguage();
+  const { language, getHerbName, getHerbDescription } = useLanguage();
   const navigate = useNavigate();
   const [selectedHerb, setSelectedHerb] = useState<Herb | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,25 +16,23 @@ const Products: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   const categories = [
-    { value: 'all', label: language === 'ar' ? 'الكل' : 'All' },
-    { value: 'culinary', label: language === 'ar' ? 'الطهوية' : 'Culinary' },
-    { value: 'medicinal', label: language === 'ar' ? 'الطبية' : 'Medicinal' },
-    { value: 'aromatic', label: language === 'ar' ? 'العطرية' : 'Aromatic' },
-    { value: 'tea', label: language === 'ar' ? 'الشاي' : 'Tea' }
+    { value: 'all', label: language === 'ar' ? 'الكل' : language === 'fr' ? 'Tout' : 'All' },
+    { value: 'culinary', label: language === 'ar' ? 'الطهوية' : language === 'fr' ? 'Culinaire' : 'Culinary' },
+    { value: 'medicinal', label: language === 'ar' ? 'الطبية' : language === 'fr' ? 'Médicinal' : 'Medicinal' },
+    { value: 'aromatic', label: language === 'ar' ? 'العطرية' : language === 'fr' ? 'Aromatique' : 'Aromatic' },
+    { value: 'tea', label: language === 'ar' ? 'الشاي' : language === 'fr' ? 'Thé' : 'Tea' }
   ];
 
   const sortOptions = [
-    { value: 'name', label: language === 'ar' ? 'الاسم' : 'Name' },
-    { value: 'price-low', label: language === 'ar' ? 'السعر: منخفض إلى عالي' : 'Price: Low to High' },
-    { value: 'price-high', label: language === 'ar' ? 'السعر: عالي إلى منخفض' : 'Price: High to Low' },
-    { value: 'rating', label: language === 'ar' ? 'التقييم' : 'Rating' }
+    { value: 'name', label: language === 'ar' ? 'الاسم' : language === 'fr' ? 'Nom' : 'Name' },
+    { value: 'rating', label: language === 'ar' ? 'التقييم' : language === 'fr' ? 'Note' : 'Rating' },
+    { value: 'reviews', label: language === 'ar' ? 'عدد المراجعات' : language === 'fr' ? 'Avis' : 'Reviews' }
   ];
 
   const filteredAndSortedHerbs = useMemo(() => {
     let filtered = herbsData.filter(herb => {
-      const matchesSearch = language === 'ar' 
-        ? herb.nameAr.toLowerCase().includes(searchTerm.toLowerCase())
-        : herb.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const herbName = getHerbName(herb);
+      const matchesSearch = herbName.toLowerCase().includes(searchTerm.toLowerCase());
       
       const matchesCategory = selectedCategory === 'all' || herb.category === selectedCategory;
       
@@ -45,22 +43,20 @@ const Products: React.FC = () => {
     filtered.sort((a, b) => {
       switch (sortBy) {
         case 'name':
-          return language === 'ar' 
-            ? a.nameAr.localeCompare(b.nameAr)
-            : a.name.localeCompare(b.name);
-        case 'price-low':
-          return a.price - b.price;
-        case 'price-high':
-          return b.price - a.price;
+          const nameA = getHerbName(a);
+          const nameB = getHerbName(b);
+          return nameA.localeCompare(nameB);
         case 'rating':
           return b.rating - a.rating;
+        case 'reviews':
+          return b.reviews - a.reviews;
         default:
           return 0;
       }
     });
 
     return filtered;
-  }, [searchTerm, selectedCategory, sortBy, language]);
+  }, [searchTerm, selectedCategory, sortBy, getHerbName]);
 
   const handleHerbClick = (herb: Herb) => {
     setSelectedHerb(herb);
@@ -85,11 +81,13 @@ const Products: React.FC = () => {
             <span>Back to Home</span>
           </button>
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            {language === 'ar' ? 'جميع المنتجات' : 'All Products'}
+            {language === 'ar' ? 'جميع المنتجات' : language === 'fr' ? 'Tous les Produits' : 'All Products'}
           </h1>
           <p className="text-xl text-primary-foreground/80 max-w-2xl">
             {language === 'ar' 
               ? 'اكتشف مجموعتنا الكاملة من الأعشاب الطبيعية عالية الجودة'
+              : language === 'fr'
+              ? 'Découvrez notre collection complète d\'herbes naturelles de qualité premium'
               : 'Discover our complete collection of premium natural herbs'
             }
           </p>
@@ -105,7 +103,7 @@ const Products: React.FC = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
               <input
                 type="text"
-                placeholder={language === 'ar' ? 'البحث عن الأعشاب...' : 'Search herbs...'}
+                placeholder={language === 'ar' ? 'البحث عن الأعشاب...' : language === 'fr' ? 'Rechercher des herbes...' : 'Search herbs...'}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-background border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
@@ -160,7 +158,7 @@ const Products: React.FC = () => {
 
           {/* Results Count */}
           <div className="mt-4 text-sm text-muted-foreground">
-            {filteredAndSortedHerbs.length} {language === 'ar' ? 'منتج' : 'products'} found
+            {filteredAndSortedHerbs.length} {language === 'ar' ? 'منتج' : language === 'fr' ? 'produits' : 'products'} found
           </div>
         </div>
       </div>
@@ -171,7 +169,7 @@ const Products: React.FC = () => {
           {viewMode === 'grid' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {filteredAndSortedHerbs.map((herb) => {
-                const herbName = language === 'ar' ? herb.nameAr : herb.name;
+                const herbName = getHerbName(herb);
                 
                 return (
                   <div
@@ -225,7 +223,7 @@ const Products: React.FC = () => {
 
 
                       <button className="w-full bg-secondary hover:bg-primary hover:text-primary-foreground text-foreground py-2 rounded-lg transition-all duration-300 font-medium">
-                        {language === 'ar' ? 'عرض التفاصيل' : 'View Details'}
+                        {language === 'ar' ? 'عرض التفاصيل' : language === 'fr' ? 'Voir les Détails' : 'View Details'}
                       </button>
                     </div>
                   </div>
@@ -235,8 +233,8 @@ const Products: React.FC = () => {
           ) : (
             <div className="space-y-4">
               {filteredAndSortedHerbs.map((herb) => {
-                const herbName = language === 'ar' ? herb.nameAr : herb.name;
-                const herbDescription = language === 'ar' ? herb.descriptionAr : herb.description;
+                const herbName = getHerbName(herb);
+                const herbDescription = getHerbDescription(herb);
                 
                 return (
                   <div
@@ -289,11 +287,13 @@ const Products: React.FC = () => {
             <div className="text-center py-16">
               <div className="text-6xl mb-4">🔍</div>
               <h3 className="text-xl font-semibold text-foreground mb-2">
-                {language === 'ar' ? 'لم يتم العثور على منتجات' : 'No products found'}
+                {language === 'ar' ? 'لم يتم العثور على منتجات' : language === 'fr' ? 'Aucun produit trouvé' : 'No products found'}
               </h3>
               <p className="text-muted-foreground">
                 {language === 'ar' 
                   ? 'جرب البحث بكلمات مختلفة أو تصفح الفئات الأخرى'
+                  : language === 'fr'
+                  ? 'Essayez de rechercher avec des mots-clés différents ou parcourez d\'autres catégories'
                   : 'Try searching with different keywords or browse other categories'
                 }
               </p>

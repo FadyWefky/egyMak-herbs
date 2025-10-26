@@ -95,7 +95,7 @@ const Testimonials: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`text-center mb-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}>
+        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
           <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
             {language === 'ar' ? 'آراء عملائنا' : 'Customer Reviews'}
           </h2>
@@ -113,8 +113,9 @@ const Testimonials: React.FC = () => {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className={`group herb-card relative ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}
-              style={{ animationDelay: isVisible ? `${index * 150}ms` : '0ms' }}
+              className={`group herb-card relative scroll-animate delay-${(index + 1) * 100} ${
+                isVisible ? 'animate-slide-up' : ''
+              }`}
             >
               {/* Quote Icon */}
               <div className="absolute top-6 right-6 opacity-10">
@@ -135,11 +136,11 @@ const Testimonials: React.FC = () => {
 
               {/* Customer Info */}
               <div className="flex items-center space-x-4">
-                <img
-                  src={testimonial.image}
-                  alt={testimonial.name}
-                  className="w-12 h-12 rounded-full object-cover"
-                />
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                  <span className="text-primary-foreground font-semibold text-lg">
+                    {testimonial.name.charAt(0)}
+                  </span>
+                </div>
                 <div>
                   <h4 className="font-semibold text-foreground">{testimonial.name}</h4>
                   <p className="text-sm text-muted-foreground">{testimonial.location}</p>
@@ -154,29 +155,29 @@ const Testimonials: React.FC = () => {
         </div>
 
         {/* Bottom Stats */}
-        <div className={`mt-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`} style={{ animationDelay: '900ms' }}>
+        <div className={`mt-16 scroll-animate delay-900 ${isVisible ? 'animate-slide-up' : ''}`}>
           <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-primary-foreground">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold mb-2">10,000+</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">10,000+</div>
                 <div className="text-primary-foreground/80">
                   {language === 'ar' ? 'عميل سعيد' : 'Happy Customers'}
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-2">50+</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">50+</div>
                 <div className="text-primary-foreground/80">
                   {language === 'ar' ? 'نوع عشب' : 'Herb Varieties'}
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-2">4.9</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">4.9</div>
                 <div className="text-primary-foreground/80">
                   {language === 'ar' ? 'تقييم العملاء' : 'Customer Rating'}
                 </div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-2">15+</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">15+</div>
                 <div className="text-primary-foreground/80">
                   {language === 'ar' ? 'سنة خبرة' : 'Years Experience'}
                 </div>

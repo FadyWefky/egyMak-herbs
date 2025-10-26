@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
 import heroImage from '../assets/hero-herbs.jpg';
+import LazyImage from './LazyImage';
 
-const Hero: React.FC = () => {
+const Hero: React.FC = React.memo(() => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState(false);
@@ -22,10 +23,11 @@ const Hero: React.FC = () => {
     >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
-        <img
+        <LazyImage
           src={heroImage}
           alt="Premium Herbs"
           className="w-full h-full object-cover"
+          fallback="/placeholder.svg"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
       </div>
@@ -37,7 +39,7 @@ const Hero: React.FC = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 text-center">
-        <div className={`max-w-4xl mx-auto ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}>
+        <div className={`max-w-4xl mx-auto scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
           {/* Badge */}
           <div className="inline-flex items-center space-x-2 bg-card/90 backdrop-blur-sm rounded-full px-4 py-2 mb-6 herb-scale-hover">
             <Sparkles className="w-4 h-4 text-accent" />
@@ -46,7 +48,8 @@ const Hero: React.FC = () => {
 
           {/* Main Heading */}
           <h1 className="text-5xl md:text-7xl font-bold text-primary-foreground mb-6 leading-tight">
-            <span className="block text-yellow-500">{t('heroTitle')}</span>
+            <span className="block text-yellow-500">EGYMAK</span>
+            <span className="block text-2xl md:text-3xl mt-2">Premium Egyptian Herbs</span>
           </h1>
 
           {/* Subtitle */}
@@ -99,6 +102,6 @@ const Hero: React.FC = () => {
      
     </section>
   );
-};
+});
 
 export default Hero;

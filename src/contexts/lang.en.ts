@@ -1,4 +1,3 @@
-// English translations
 export const en = {
   // Navigation
   home: "Home",
@@ -26,7 +25,7 @@ export const en = {
   addToCart: "Add to Cart",
   viewDetails: "View Details",
   // Footer
-  footerAbout: "About HerbMart",
+  footerAbout: "About EGYMAK",
   footerDesc: "Your trusted source for premium quality herbs and natural products.",
   quickLinks: "Quick Links",
   customerCare: "Customer Care",
@@ -46,9 +45,9 @@ export const en = {
     location: "Location",
     address: "123 Herbal St, Cairo, Egypt",
     phone: "Phone",
-    phoneNumber: "+20 100 123 4567",
+    phoneNumber: "+201032013000",
     email: "Email",
-    emailAddress: "info@egymak.com",
+    emailAddress: "egymak@gmail.com",
     facebook: "Facebook",
     instagram: "Instagram",
     twitter: "Twitter",

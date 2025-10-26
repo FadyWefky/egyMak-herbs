@@ -1,4 +1,3 @@
-// French translations
 export const fr = {
   // Navigation
   home: "Accueil",
@@ -26,7 +25,7 @@ export const fr = {
   addToCart: "Ajouter au Panier",
   viewDetails: "Voir Détails",
   // Footer
-  footerAbout: "À propos HerbMart",
+  footerAbout: "À propos EGYMAK",
   footerDesc: "Votre source de confiance pour des herbes de qualité premium et des produits naturels.",
   quickLinks: "Liens Rapides",
   customerCare: "Service Client",
@@ -46,9 +45,9 @@ export const fr = {
     location: "Emplacement",
     address: "123 rue des Herbes, Le Caire, Égypte",
     phone: "Téléphone",
-    phoneNumber: "+20 100 123 4567",
+    phoneNumber: "+201032013000",
     email: "E-mail",
-    emailAddress: "info@egymak.com",
+    emailAddress: "egymak@gmail.com",
     facebook: "Facebook",
     instagram: "Instagram",
     twitter: "Twitter",

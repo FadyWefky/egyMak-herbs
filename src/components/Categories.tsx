@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChefHat, Heart, Flower, Coffee } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
+import placeholderImages from '../utils/placeholderImages';
+import LazyImage from './LazyImage';
 
 const Categories: React.FC = () => {
   const { t, language } = useLanguage();
@@ -29,25 +30,25 @@ const Categories: React.FC = () => {
   const categories = [
     {
       key: 'culinary',
-      icon: ChefHat,
+      image: placeholderImages['culinary-herbs.jpg'],
       color: 'from-green-500 to-emerald-600',
       delay: '0ms'
     },
     {
       key: 'medicinal',
-      icon: Heart,
+      image: placeholderImages['medicinal-herbs.jpg'],
       color: 'from-red-500 to-pink-600',
       delay: '200ms'
     },
     {
       key: 'aromatic',
-      icon: Flower,
+      image: placeholderImages['aromatic-herbs.jpg'],
       color: 'from-purple-500 to-violet-600',
       delay: '400ms'
     },
     {
       key: 'tea',
-      icon: Coffee,
+      image: placeholderImages['tea-herbs.jpg'],
       color: 'from-amber-500 to-orange-600',
       delay: '600ms'
     }
@@ -62,7 +63,7 @@ const Categories: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`text-center mb-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}>
+        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
           <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
             {t('categoriesTitle')}
           </h2>
@@ -74,18 +75,21 @@ const Categories: React.FC = () => {
           {categories.map((category, index) => (
             <div
               key={category.key}
-              className={`group herb-card cursor-pointer ${
-                isVisible ? 'herb-fade-in animate' : 'herb-fade-in'
+              className={`group herb-card cursor-pointer scroll-animate delay-${(index + 1) * 100} ${
+                isVisible ? 'animate-slide-up' : ''
               }`}
-              style={{ animationDelay: isVisible ? category.delay : '0ms' }}
+              onClick={() => navigate('/categories')}
             >
-              {/* Icon Container */}
-              <div className="relative mb-6">
-                <div className={`w-20 h-20 bg-gradient-to-br ${category.color} rounded-2xl mx-auto flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6`}>
-                  <category.icon className="w-10 h-10 text-white" />
-                </div>
-                <div className="absolute inset-0 w-20 h-20 mx-auto bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
-              </div>
+                  {/* Image Container */}
+                  <div className="relative mb-6 overflow-hidden rounded-2xl">
+                    <LazyImage
+                      src={category.image}
+                      alt={`${category.key} herbs`}
+                      className="w-full h-32 object-cover rounded-2xl transform transition-all duration-500 group-hover:scale-105"
+                      fallback={`data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiNmM2Y0ZjYiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzY2NjY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkM8L3RleHQ+Cjwvc3ZnPgo=`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent rounded-2xl"></div>
+                  </div>
 
               {/* Content */}
               <div className="text-center">
@@ -104,7 +108,7 @@ const Categories: React.FC = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className={`text-center mt-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`} style={{ animationDelay: '800ms' }}>
+        <div className={`text-center mt-16 scroll-animate delay-800 ${isVisible ? 'animate-slide-up' : ''}`}>
           <button 
             onClick={() => navigate('/categories')}
             className="herb-button-primary"

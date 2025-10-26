@@ -1,4 +1,3 @@
-// Arabic translations
 export const ar = {
   // Navigation
   home: "الرئيسية",
@@ -46,9 +45,9 @@ export const ar = {
     location: "الموقع",
     address: "١٢٣ شارع النزهة، القاهرة، مصر",
     phone: "الهاتف",
-    phoneNumber: "+٢٠ ١٠٠ ١٢٣ ٤٥٦٧",
+    phoneNumber: "+201032013000",
     email: "البريد الإلكتروني",
-    emailAddress: "info@egymak.com",
+    emailAddress: "egymak@gmail.com",
     facebook: "فيسبوك",
     instagram: "انستجرام",
     twitter: "تويتر",

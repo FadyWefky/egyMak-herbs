@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Heart, Brain, Shield, Zap, Leaf, Users } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
+import placeholderImages from '../utils/placeholderImages';
+import LazyImage from './LazyImage';
 
 const HealthBenefits: React.FC = () => {
   const { language } = useLanguage();
@@ -29,7 +30,7 @@ const HealthBenefits: React.FC = () => {
   const benefits = [
     {
       id: 'heart-health',
-      icon: Heart,
+      image: placeholderImages['heart-health.jpg'],
       title: language === 'ar' ? 'صحة القلب' : 'Heart Health',
       description: language === 'ar' 
         ? 'الأعشاب الطبيعية تدعم صحة القلب والدورة الدموية'
@@ -38,7 +39,7 @@ const HealthBenefits: React.FC = () => {
     },
     {
       id: 'brain-boost',
-      icon: Brain,
+      image: placeholderImages['brain-boost.jpg'],
       title: language === 'ar' ? 'تعزيز الدماغ' : 'Brain Boost',
       description: language === 'ar' 
         ? 'تحسين الذاكرة والوظائف المعرفية'
@@ -47,7 +48,7 @@ const HealthBenefits: React.FC = () => {
     },
     {
       id: 'immune-support',
-      icon: Shield,
+      image: placeholderImages['immune-support.jpg'],
       title: language === 'ar' ? 'تقوية المناعة' : 'Immune Support',
       description: language === 'ar' 
         ? 'تعزيز جهاز المناعة ومقاومة الأمراض'
@@ -56,7 +57,7 @@ const HealthBenefits: React.FC = () => {
     },
     {
       id: 'natural-energy',
-      icon: Zap,
+      image: placeholderImages['natural-energy.jpg'],
       title: language === 'ar' ? 'الطاقة الطبيعية' : 'Natural Energy',
       description: language === 'ar' 
         ? 'زيادة الطاقة والحيوية بشكل طبيعي'
@@ -65,7 +66,7 @@ const HealthBenefits: React.FC = () => {
     },
     {
       id: 'antioxidants',
-      icon: Leaf,
+      image: placeholderImages['antioxidants.jpg'],
       title: language === 'ar' ? 'مضادات الأكسدة' : 'Antioxidants',
       description: language === 'ar' 
         ? 'مكافحة الجذور الحرة والشيخوخة'
@@ -74,7 +75,7 @@ const HealthBenefits: React.FC = () => {
     },
     {
       id: 'overall-wellness',
-      icon: Users,
+      image: placeholderImages['overall-wellness.jpg'],
       title: language === 'ar' ? 'العافية العامة' : 'Overall Wellness',
       description: language === 'ar' 
         ? 'تحسين الصحة العامة والعافية'
@@ -91,7 +92,7 @@ const HealthBenefits: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`text-center mb-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}>
+        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
           <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
             {language === 'ar' ? 'الفوائد الصحية' : 'Health Benefits'}
           </h2>
@@ -109,17 +110,21 @@ const HealthBenefits: React.FC = () => {
           {benefits.map((benefit, index) => (
             <div
               key={benefit.id}
-              className={`group herb-card cursor-pointer text-center ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}
-              style={{ animationDelay: isVisible ? `${index * 150}ms` : '0ms' }}
+              className={`group herb-card cursor-pointer text-center scroll-animate delay-${(index + 1) * 100} ${
+                isVisible ? 'animate-slide-up' : ''
+              }`}
               onClick={() => navigate(`/health-benefits/${benefit.id}`)}
             >
-              {/* Icon */}
-              <div className="relative mb-6">
-                <div className={`w-20 h-20 bg-gradient-to-br ${benefit.color} rounded-2xl mx-auto flex items-center justify-center transform transition-all duration-500 group-hover:scale-110 group-hover:rotate-6`}>
-                  <benefit.icon className="w-10 h-10 text-white" />
-                </div>
-                <div className="absolute inset-0 w-20 h-20 mx-auto bg-gradient-to-br from-white/20 to-transparent rounded-2xl"></div>
-              </div>
+                  {/* Image */}
+                  <div className="relative mb-6 overflow-hidden rounded-2xl">
+                    <LazyImage
+                      src={benefit.image}
+                      alt={benefit.title}
+                      className="w-full h-32 object-cover rounded-2xl transform transition-all duration-500 group-hover:scale-105"
+                      fallback={`data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiByeD0iMTIiIGZpbGw9IiNmM2Y0ZjYiLz4KPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIyNCIgZmlsbD0iIzY2NjY2NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPkg8L3RleHQ+Cjwvc3ZnPgo=`}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-black/20 to-transparent rounded-2xl"></div>
+                  </div>
 
               {/* Content */}
               <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
@@ -136,7 +141,7 @@ const HealthBenefits: React.FC = () => {
         </div>
 
         {/* Bottom CTA */}
-        <div className={`text-center mt-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`} style={{ animationDelay: '900ms' }}>
+        <div className={`text-center mt-16 scroll-animate delay-900 ${isVisible ? 'animate-slide-up' : ''}`}>
           <div className="bg-card rounded-2xl p-8 max-w-4xl mx-auto shadow-lg">
             <h3 className="text-2xl font-bold text-foreground mb-4">
               {language === 'ar' ? 'ابدأ رحلتك نحو الصحة الطبيعية' : 'Start Your Natural Health Journey'}
@@ -148,7 +153,9 @@ const HealthBenefits: React.FC = () => {
               }
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="herb-button-primary">
+              <button
+               onClick={() => navigate('/products')}
+               className="herb-button-primary">
                 {language === 'ar' ? 'استكشف المنتجات' : 'Explore Products'}
               </button>
               <button className="herb-button-secondary">

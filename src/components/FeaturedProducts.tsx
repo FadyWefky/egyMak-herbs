@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import { Star, ShoppingCart, Eye } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
 import { herbsData, Herb } from '../data/herbs';
+import { getHerbImage } from '../utils/herbImageMapping';
 import HerbModal from './HerbModal';
+import LazyImage from './LazyImage';
 
 const FeaturedProducts: React.FC = () => {
-  const { t, language } = useLanguage();
+  const { t, language, getHerbName } = useLanguage();
   const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -53,7 +55,7 @@ const FeaturedProducts: React.FC = () => {
     >
       <div className="container mx-auto px-4">
         {/* Section Header */}
-        <div className={`text-center mb-16 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`}>
+        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
           <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
             {t('featuredProducts')}
           </h2>
@@ -65,15 +67,14 @@ const FeaturedProducts: React.FC = () => {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {featuredProducts.map((herb, index) => {
-            const herbName = language === 'ar' ? herb.nameAr : herb.name;
+            const herbName = getHerbName(herb);
             
             return (
             <div
                 key={herb.id}
-                className={`group herb-card cursor-pointer relative overflow-hidden ${
-                isVisible ? 'herb-fade-in animate' : 'herb-fade-in'
+                className={`group herb-card cursor-pointer relative overflow-hidden scroll-animate delay-${(index + 1) * 100} ${
+                isVisible ? 'animate-slide-up' : ''
               }`}
-              style={{ animationDelay: isVisible ? `${index * 200}ms` : '0ms' }}
                 onClick={() => handleHerbClick(herb)}
             >
               {/* Badge */}
@@ -85,10 +86,11 @@ const FeaturedProducts: React.FC = () => {
 
               {/* Product Image */}
               <div className="relative overflow-hidden rounded-lg mb-4">
-                <img
-                    src={herb.image}
-                    alt={herbName}
+                <LazyImage
+                  src={getHerbImage(herb.id)}
+                  alt={herbName}
                   className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
+                  fallback="/placeholder.svg"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
@@ -124,7 +126,7 @@ const FeaturedProducts: React.FC = () => {
         </div>
 
         {/* View All Button */}
-        <div className={`text-center mt-12 ${isVisible ? 'herb-fade-in animate' : 'herb-fade-in'}`} style={{ animationDelay: '800ms' }}>
+        <div className={`text-center mt-12 scroll-animate delay-800 ${isVisible ? 'animate-slide-up' : ''}`}>
           <button 
             onClick={() => navigate('/products')}
             className="herb-button-primary"

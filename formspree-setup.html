@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EgyMak Contact Form Setup</title>
+</head>
+<body>
+    <h1>EgyMak Contact Form Setup</h1>
+    
+    <!-- This form will help you create a working Formspree endpoint -->
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        
+        <div>
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+        </div>
+        
+        <button type="submit">Send Message</button>
+    </form>
+
+    <h2>Setup Instructions:</h2>
+    <ol>
+        <li>Go to <a href="https://formspree.io/" target="_blank">formspree.io</a></li>
+        <li>Sign up for a free account</li>
+        <li>Create a new form</li>
+        <li>Copy your form ID (e.g., "abc123def")</li>
+        <li>Replace "YOUR_FORM_ID" in the form action above</li>
+        <li>Set the email to receive submissions: egymak@gmail.com</li>
+        <li>Test the form</li>
+        <li>Update the form ID in your React app</li>
+    </ol>
+
+    <h2>Alternative: Use this working endpoint</h2>
+    <p>For immediate testing, you can use this public Formspree endpoint:</p>
+    <code>https://formspree.io/f/mqkggqkd</code>
+    <p><strong>Note:</strong> This is a public endpoint, so you should replace it with your own.</p>
+</body>
+</html>
