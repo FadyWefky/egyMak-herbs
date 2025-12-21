@@ -60,10 +60,7 @@ const HerbModal: React.FC<HerbModalProps> = ({ herb, isOpen, onClose }) => {
                   <MapPin className="w-4 h-4" />
                   <span>{herb.origin}</span>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <Weight className="w-4 h-4" />
-                  <span>{herb.weight}</span>
-                </div>
+                
               </div>
             </div>
 

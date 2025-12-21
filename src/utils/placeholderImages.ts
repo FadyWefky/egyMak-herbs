@@ -2,27 +2,27 @@
 // These are now served from the public directory for better performance
 
 const placeholderImages = {
-  // Category icons
-  'culinary-herbs.jpg': '/images/icons/culinary-herbs.jpg',
-  'medicinal-herbs.jpg': '/images/icons/medicinal-herbs.jpg',
-  'aromatic-herbs.jpg': '/images/icons/aromatic-herbs.jpg',
-  'tea-herbs.jpg': '/images/icons/tea-herbs.jpg',
+  // Category icons - using images from herbs folder
+  'culinary-herbs.jpg': '/images/herbs/Culinary Herbs.jpg',
+  'medicinal-herbs.jpg': '/images/herbs/Medicinal Herbs.jpg',
+  'aromatic-herbs.jpg': '/images/herbs/Aromatic Herbs.jpg',
+  'tea-herbs.jpg': '/images/herbs/Tea Herbs.jpg',
   
-  // Health benefit icons
-  'heart-health.jpg': '/images/icons/heart-health.jpg',
-  'brain-boost.jpg': '/images/icons/brain-boost.jpg',
-  'immune-support.jpg': '/images/icons/immune-support.jpg',
-  'natural-energy.jpg': '/images/icons/natural-energy.jpg',
-  'antioxidants.jpg': '/images/icons/antioxidants.jpg',
-  'overall-wellness.jpg': '/images/icons/overall-wellness.jpg',
+  // Health benefit icons - using images from herbs folder
+  'heart-health.jpg': '/images/herbs/Heart Health.jpg',
+  'brain-boost.jpg': '/images/herbs/Brain Boost.jpg',
+  'immune-support.jpg': '/images/herbs/Immune Support.jpg',
+  'natural-energy.jpg': '/images/herbs/Natural Energy.jpg',
+  'antioxidants.jpg': '/images/herbs/Antioxidants.jpg',
+  'overall-wellness.jpg': '/images/herbs/Overall Wellness.jpg',
   
-  // Stats icons
-  'herb-varieties.jpg': '/images/icons/herb-varieties.jpg',
-  'main-categories.jpg': '/images/icons/main-categories.jpg',
-  'average-rating.jpg': '/images/icons/average-rating.jpg',
-  'customer-reviews.jpg': '/images/icons/customer-reviews.jpg',
-  'premium-herbs.jpg': '/images/icons/premium-herbs.jpg',
-  'egyptian-herbs.jpg': '/images/icons/egyptian-herbs.jpg'
+  // Stats icons - using general herbs image as fallback
+  'herb-varieties.jpg': '/images/herbs/Herbs.jpg',
+  'main-categories.jpg': '/images/herbs/Herbs.jpg',
+  'average-rating.jpg': '/images/herbs/Herbs.jpg',
+  'customer-reviews.jpg': '/images/herbs/Herbs.jpg',
+  'premium-herbs.jpg': '/images/herbs/Herbs.jpg',
+  'egyptian-herbs.jpg': '/images/herbs/Herbs.jpg'
 };
 
 export default placeholderImages;
