@@ -16,13 +16,13 @@ const placeholderImages = {
   'antioxidants.jpg': '/images/herbs/Antioxidants.jpg',
   'overall-wellness.jpg': '/images/herbs/Overall Wellness.jpg',
   
-  // Stats icons - using general herbs image as fallback
-  'herb-varieties.jpg': '/images/herbs/Herbs.jpg',
-  'main-categories.jpg': '/images/herbs/Herbs.jpg',
-  'average-rating.jpg': '/images/herbs/Herbs.jpg',
-  'customer-reviews.jpg': '/images/herbs/Herbs.jpg',
-  'premium-herbs.jpg': '/images/herbs/Herbs.jpg',
-  'egyptian-herbs.jpg': '/images/herbs/Herbs.jpg'
+  // Stats icons - using images from herbs folder
+  'herb_varities.jpg': '/images/herbs/herb_varities.jpg',
+  'main-categories.jpg': '/images/herbs/Culinary Herbs.jpg',
+  'rating.jpg': '/images/herbs/rating.jpg',
+  'sutomer_reviews.jpg': '/images/herbs/sutomer_reviews.jpg',
+  'premium_herbs.jpg': '/images/herbs/premium_herbs.jpg',
+  'egyptian_herbs.jpg': '/images/herbs/egyptian_herbs.jpg'
 };
 
 export default placeholderImages;

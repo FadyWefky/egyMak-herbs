@@ -35,7 +35,7 @@ const HerbStats: React.FC = () => {
 
   const stats = [
     {
-      image: placeholderImages['herb-varieties.jpg'],
+      image: placeholderImages['herb_varities.jpg'],
       value: totalHerbs,
       label: language === 'ar' ? 'نوع عشب' : 'Herb Varieties',
       description: language === 'ar' ? 'مجموعة شاملة من الأعشاب الطبيعية' : 'Comprehensive collection of natural herbs',
@@ -49,28 +49,28 @@ const HerbStats: React.FC = () => {
       color: 'from-blue-500 to-cyan-600'
     },
     {
-      image: placeholderImages['average-rating.jpg'],
+      image: placeholderImages['rating.jpg'],
       value: averageRating,
       label: language === 'ar' ? 'تقييم متوسط' : 'Average Rating',
       description: language === 'ar' ? 'جودة عالية معتمدة من العملاء' : 'High quality endorsed by customers',
       color: 'from-yellow-500 to-orange-600'
     },
     {
-      image: placeholderImages['customer-reviews.jpg'],
+      image: placeholderImages['sutomer_reviews.jpg'],
       value: totalReviews.toLocaleString(),
       label: language === 'ar' ? 'تقييم عميل' : 'Customer Reviews',
       description: language === 'ar' ? 'آراء عملاء راضين حول العالم' : 'Satisfied customer opinions worldwide',
       color: 'from-purple-500 to-violet-600'
     },
     {
-      image: placeholderImages['premium-herbs.jpg'],
+      image: placeholderImages['premium_herbs.jpg'],
       value: premiumHerbs,
       label: language === 'ar' ? 'عشب مميز' : 'Premium Herbs',
       description: language === 'ar' ? 'أعشاب حاصلة على شهادات الجودة' : 'Herbs with quality certifications',
       color: 'from-red-500 to-pink-600'
     },
     {
-      image: placeholderImages['egyptian-herbs.jpg'],
+      image: placeholderImages['egyptian_herbs.jpg'],
       value: egyptianHerbs,
       label: language === 'ar' ? 'عشب مصري' : 'Egyptian Herbs',
       description: language === 'ar' ? 'مزروع في الأراضي المصرية الخصبة' : 'Cultivated in fertile Egyptian lands',
@@ -144,7 +144,7 @@ const HerbStats: React.FC = () => {
             <h3 className="text-2xl font-bold text-foreground mb-4">
               {language === 'ar' ? 'لماذا تختار أعشاب Egymak؟' : 'Why Choose Egymak Herbs?'}
             </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
               <div className="flex items-center justify-center space-x-2">
                 <div className="w-2 h-2 bg-primary rounded-full"></div>
                 <span className="text-muted-foreground">
@@ -157,12 +157,7 @@ const HerbStats: React.FC = () => {
                   {language === 'ar' ? 'معلومات علمية دقيقة' : 'Accurate Scientific Information'}
                 </span>
               </div>
-              <div className="flex items-center justify-center space-x-2">
-                <div className="w-2 h-2 bg-primary rounded-full"></div>
-                <span className="text-muted-foreground">
-                  {language === 'ar' ? 'دعم متعدد اللغات' : 'Multilingual Support'}
-                </span>
-              </div>
+             
             </div>
           </div>
         </div>

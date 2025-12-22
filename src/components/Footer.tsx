@@ -45,7 +45,7 @@ const Footer: React.FC = React.memo(() => {
           <div className="space-y-6">
             <div className="flex items-center space-x-2">
                   <img 
-                    src="/src/assets/logo.png" 
+                    src="/logo.png" 
                     alt="EGYMAK - Premium Egyptian Herbs Logo" 
                     className="w-8 h-8 object-contain"
                   />

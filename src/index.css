@@ -131,9 +131,60 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     /* Enhanced smooth scrolling */
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+  }
+
+  /* Headings use elegant serif font - perfect for herbs/natural products */
+  h1, h2, h3, h4, h5, h6,
+  .font-heading,
+  [class*="font-heading"] {
+    font-family: 'Lora', Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure body text uses modern sans-serif */
+  p, span, div, a, button, input, textarea, select, label,
+  .font-body,
+  [class*="font-body"] {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+
+  /* Special styling for hero and prominent headings */
+  h1 {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+  }
+
+  h2 {
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  /* Better line height for body text */
+  p {
+    line-height: 1.7;
+  }
+
+  /* Text selection styling with theme colors */
+  ::selection {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  ::-moz-selection {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
   }
 
   /* Custom scrollbar styling */
@@ -152,6 +203,17 @@ All colors MUST be HSL.
 
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.8);
+  }
+}
+
+@layer utilities {
+  /* Font utility classes */
+  .font-heading {
+    font-family: 'Lora', Georgia, Cambria, 'Times New Roman', Times, serif;
+  }
+  
+  .font-body {
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 }
 

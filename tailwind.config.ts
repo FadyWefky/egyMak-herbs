@@ -24,6 +24,12 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				serif: ['Lora', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+				heading: ['Lora', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+				body: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',

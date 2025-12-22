@@ -16,10 +16,20 @@ const Header: React.FC = React.memo(() => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    if (href.startsWith('#')) {
+      e.preventDefault();
+      const element = document.querySelector(href);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  };
+
   const navigationItems = [
     { key: 'home', href: '/' },
     { key: 'categories', href: '#categories' },
-    { key: 'about', href: 'about' },
+    { key: 'about', href: '/about' },
     { key: 'contact', href: '#contact' }
   ];
 
@@ -37,7 +47,7 @@ const Header: React.FC = React.memo(() => {
           {/* Logo - Centered */}
           <div className="absolute left-0 flex items-center space-x-2 herb-scale-hover">
             <img 
-              src="/src/assets/logo.png" 
+              src="/logo.png" 
               alt="EGYMAK - Premium Egyptian Herbs Logo" 
               className="w-16 h-15  rounded-lg"
             />
@@ -49,6 +59,7 @@ const Header: React.FC = React.memo(() => {
               <a
                 key={item.key}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group px-3 py-2"
               >
                 {t(item.key)}
@@ -81,8 +92,11 @@ const Header: React.FC = React.memo(() => {
                 <a
                   key={item.key}
                   href={item.href}
+                  onClick={(e) => {
+                    handleNavClick(e, item.href);
+                    setIsMenuOpen(false);
+                  }}
                   className="block px-4 py-2 text-foreground hover:text-primary hover:bg-secondary/50 transition-colors duration-300"
-                  onClick={() => setIsMenuOpen(false)}
                 >
                   {t(item.key)}
                 </a>

@@ -52,7 +52,7 @@ export default function GetInTouch() {
     ];
 
   return (
-    <section className="bg-white dark:bg-gray-900 mb-6">
+    <section id="contact" className="bg-background mb-6">
       <div className="container px-6 py-8 mx-auto">
         {/* Header */}
         <motion.div
@@ -99,20 +99,20 @@ export default function GetInTouch() {
               className={`flex flex-col items-center justify-center text-center p-6 rounded-2xl shadow-xl bg-clip-padding bg-gradient-to-r ${item.gradient} w-64`}
               whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
             >
-              <span className="p-3 text-teal-600 rounded-full bg-yellow-50">
+              <span className="p-3 text-primary rounded-full bg-accent/20">
                 {item.icon}
               </span>
-              <h2 className="mt-4 text-lg font-bold text-teal-600">{item.label}</h2>
-              <p className="mt-2 text-gray-500 dark:text-gray-400">{item.description}</p>
+              <h2 className="mt-4 text-lg font-bold text-primary">{item.label}</h2>
+              <p className="mt-2 text-muted-foreground">{item.description}</p>
               {item.href ? (
                 <a
                   href={item.href}
-                  className="mt-2 text-teal-600 hover:underline font-semibold"
+                  className="mt-2 text-primary hover:text-primary/80 hover:underline font-semibold transition-colors duration-300"
                 >
                   {item.value}
                 </a>
               ) : (
-                <p className="mt-2 text-teal-600 font-semibold">{item.value}</p>
+                <p className="mt-2 text-primary font-semibold">{item.value}</p>
               )}
             </motion.div>
           ))}
@@ -127,7 +127,7 @@ export default function GetInTouch() {
   transition={{ duration: 0.6 }}
 >
   <div className="inline-flex flex-col items-center">
-    <h4 className="text-2xl font-medium text-teal-600 uppercase tracking-wider mb-4">
+    <h4 className="text-2xl font-medium text-primary uppercase tracking-wider mb-4">
       {t('followUs')}
     </h4>
     <div className="flex gap-3 space-x-6">
@@ -137,9 +137,9 @@ export default function GetInTouch() {
           href={social.href}
           className={`
             w-12 h-12 rounded-2xl flex items-center justify-center
-            bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300
-            hover:bg-gray-200 dark:hover:bg-gray-700
-            transition-colors duration-200
+            bg-secondary text-foreground
+            hover:bg-primary hover:text-primary-foreground
+            transition-colors duration-300
           `}
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.95 }}

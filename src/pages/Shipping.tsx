@@ -29,12 +29,7 @@ const Shipping: React.FC = () => {
                 : '• Standard Shipping: 3-5 business days'
               }
             </p>
-            <p>
-              {language === 'ar' 
-                ? '• الشحن المجاني للطلبات أكثر من 500 جنيه'
-                : '• Free shipping for orders over 500 EGP'
-              }
-            </p>
+            
           </div>
         </div>
       </div>
