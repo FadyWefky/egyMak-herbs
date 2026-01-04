@@ -23,6 +23,7 @@ const Support = React.lazy(() => import('./Support'));
 const Privacy = React.lazy(() => import('./Privacy'));
 const Terms = React.lazy(() => import('./Terms'));
 const Cookies = React.lazy(() => import('./Cookies'));
+const NotFound = React.lazy(() => import('./NotFound'));
 
 const PageLoadingSpinner = () => (
   <div className="flex items-center justify-center min-h-[400px]">
@@ -184,6 +185,16 @@ const Index = () => {
             <Layout>
               <Suspense fallback={<PageLoadingSpinner />}>
                 <Cookies />
+              </Suspense>
+            </Layout>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <Suspense fallback={<PageLoadingSpinner />}>
+                <NotFound />
               </Suspense>
             </Layout>
           }

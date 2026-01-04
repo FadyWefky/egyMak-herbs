@@ -67,6 +67,8 @@ const LazyImage: React.FC<LazyImageProps> = ({
           onLoad={handleLoad}
           onError={handleError}
           loading="lazy"
+          decoding="async"
+          fetchpriority={isInView ? "auto" : "low"}
         />
       )}
     </div>

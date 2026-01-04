@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X, Leaf } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/useLanguage';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -7,6 +8,7 @@ const Header: React.FC = React.memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language } = useLanguage();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,9 +21,20 @@ const Header: React.FC = React.memo(() => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // If we're not on home page, navigate to home first
+      if (window.location.pathname !== '/') {
+        navigate('/');
+        setTimeout(() => {
+          const element = document.querySelector(href);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
       }
     }
   };
@@ -56,15 +69,26 @@ const Header: React.FC = React.memo(() => {
           {/* Desktop Navigation - Centered */}
           <nav className="hidden md:flex items-center space-x-8">
             {navigationItems.map((item) => (
-              <a
-                key={item.key}
-                href={item.href}
-                onClick={(e) => handleNavClick(e, item.href)}
-                className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group px-3 py-2"
-              >
-                {t(item.key)}
-                <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
-              </a>
+              item.href.startsWith('#') ? (
+                <a
+                  key={item.key}
+                  href={item.href}
+                  onClick={(e) => handleNavClick(e, item.href)}
+                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group px-3 py-2"
+                >
+                  {t(item.key)}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              ) : (
+                <Link
+                  key={item.key}
+                  to={item.href}
+                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group px-3 py-2"
+                >
+                  {t(item.key)}
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                </Link>
+              )
             ))}
           </nav>
 
@@ -89,17 +113,28 @@ const Header: React.FC = React.memo(() => {
           }`}>
             <nav className="py-4 space-y-2">
               {navigationItems.map((item) => (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  onClick={(e) => {
-                    handleNavClick(e, item.href);
-                    setIsMenuOpen(false);
-                  }}
-                  className="block px-4 py-2 text-foreground hover:text-primary hover:bg-secondary/50 transition-colors duration-300"
-                >
-                  {t(item.key)}
-                </a>
+                item.href.startsWith('#') ? (
+                  <a
+                    key={item.key}
+                    href={item.href}
+                    onClick={(e) => {
+                      handleNavClick(e, item.href);
+                      setIsMenuOpen(false);
+                    }}
+                    className="block px-4 py-2 text-foreground hover:text-primary hover:bg-secondary/50 transition-colors duration-300"
+                  >
+                    {t(item.key)}
+                  </a>
+                ) : (
+                  <Link
+                    key={item.key}
+                    to={item.href}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="block px-4 py-2 text-foreground hover:text-primary hover:bg-secondary/50 transition-colors duration-300"
+                  >
+                    {t(item.key)}
+                  </Link>
+                )
               ))}
             </nav>
           </div>

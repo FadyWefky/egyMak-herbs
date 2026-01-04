@@ -60,12 +60,12 @@ export const herbImageMapping: { [key: number]: string } = {
   58: '/images/herbs/Saffron.jpg',
   59: '/images/herbs/Star Anise.jpg',
   60: '/images/herbs/Catnip.jpg',
-  61: '/images/herbs/Plantain.jpg',
-  62: '/images/herbs/Yarrow.jpg',
-  63: '/images/herbs/Red Clover.jpg',
-  64: '/images/herbs/Licorice Root.jpg',
-  65: '/images/herbs/Aloe Vera.jpg',
-  66: '/images/herbs/Moringa.jpg'
+  61: '/images/herbs/Frankincense.jpg',
+  62: '/images/herbs/Sesame.jpg',
+  63: '/images/herbs/Wormwood.jpg',
+  64: '/images/herbs/Senna.jpg',
+  65: '/images/herbs/Doum.jpg',
+  66: '/images/herbs/Carob.jpg'
 };
 
 // Function to get local image for herb
