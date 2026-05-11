@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/useLanguage";
-import { Leaf, Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
+import { Facebook, Instagram, Twitter } from 'lucide-react';
 
 
 export default function GetInTouch() {
@@ -43,16 +43,14 @@ export default function GetInTouch() {
     },
   ];
 
-
-
   const socialLinks = [
-      { icon: Facebook, href: '#', color: 'hover:text-blue-500' },
-      { icon: Instagram, href: '#', color: 'hover:text-pink-500' },
-      { icon: Twitter, href: '#', color: 'hover:text-blue-400' }
+      { icon: Facebook, href: '#', name: 'Facebook' },
+      { icon: Instagram, href: '#', name: 'Instagram' },
+      { icon: Twitter, href: '#', name: 'Twitter' }
     ];
 
   return (
-    <section id="contact" className="bg-background mb-6">
+    <section id="contact" className="bg-muted/30 mb-6">
       <div className="container px-6 py-8 mx-auto">
         {/* Header */}
         <motion.div
@@ -67,13 +65,13 @@ export default function GetInTouch() {
               {t('getintouch.title')}
             </h2>
             <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
-          <p className="my-2 text-gray-500 dark:text-gray-400">{t('getintouch.subtitle')}</p>
+          <p className="my-2 text-muted-foreground max-w-xl mx-auto">{t('getintouch.subtitle')}</p>
           </div>
         </motion.div>
 
         {/* Contact Cards */}
         <motion.div
-          className="flex flex-row justify-center gap-10 space-x-6 mt-10 flex-wrap"
+          className="flex flex-row justify-center gap-8 md:gap-10 mt-10 flex-wrap"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
@@ -96,10 +94,10 @@ export default function GetInTouch() {
                   ease: "easeInOut",
                 },
               }}
-              className={`flex flex-col items-center justify-center text-center p-6 rounded-2xl shadow-xl bg-clip-padding bg-gradient-to-r ${item.gradient} w-64`}
-              whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0, 0, 0, 0.2)" }}
+              className="flex flex-col items-center justify-center text-center p-6 rounded-2xl shadow-xl border border-border/80 bg-card w-64 transition-shadow duration-300"
+              whileHover={{ scale: 1.05, boxShadow: "0 16px 40px hsla(210, 82%, 22%, 0.12)" }}
             >
-              <span className="p-3 text-primary rounded-full bg-accent/20">
+              <span className="p-3 text-primary rounded-full bg-accent/15">
                 {item.icon}
               </span>
               <h2 className="mt-4 text-lg font-bold text-primary">{item.label}</h2>
@@ -107,7 +105,7 @@ export default function GetInTouch() {
               {item.href ? (
                 <a
                   href={item.href}
-                  className="mt-2 text-primary hover:text-primary/80 hover:underline font-semibold transition-colors duration-300"
+                  className="mt-2 text-accent hover:text-primary hover:underline font-semibold transition-colors duration-300"
                 >
                   {item.value}
                 </a>
@@ -127,20 +125,20 @@ export default function GetInTouch() {
   transition={{ duration: 0.6 }}
 >
   <div className="inline-flex flex-col items-center">
-    <h4 className="text-2xl font-medium text-primary uppercase tracking-wider mb-4">
+    <h4 className="text-2xl font-semibold text-primary uppercase tracking-wider mb-4">
       {t('followUs')}
     </h4>
-    <div className="flex gap-3 space-x-6">
+    <div className="flex gap-3 justify-center flex-wrap">
       {socialLinks.map((social, index) => (
         <motion.a
           key={index}
           href={social.href}
-          className={`
+          className="
             w-12 h-12 rounded-2xl flex items-center justify-center
-            bg-secondary text-foreground
-            hover:bg-primary hover:text-primary-foreground
+            bg-secondary text-foreground border border-border/60
+            hover:bg-primary hover:text-primary-foreground hover:border-primary
             transition-colors duration-300
-          `}
+          "
           whileHover={{ y: -2 }}
           whileTap={{ scale: 0.95 }}
           aria-label={social.name}
@@ -154,4 +152,4 @@ export default function GetInTouch() {
       </div>
     </section>
   );
-} 
+}

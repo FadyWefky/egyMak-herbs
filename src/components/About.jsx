@@ -26,6 +26,7 @@ const paperVariants = {
 
 export default function About() {
   const { t } = useLanguage();
+  const alt = t("aboutImageAlt");
   const papers = [
     t("aboutParagraph1"),
     t("aboutParagraph2"),
@@ -58,10 +59,10 @@ export default function About() {
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
               variants={paperVariants}
-              className="relative bg-white/50 border border-green-200 shadow-xl rounded-2xl my-4 px-4 py-6 text-lg text-cyan-800 backdrop-blur-lg overflow-hidden"
-              style={{ zIndex: 10 - i, boxShadow: `0 8px 32px 0 rgba(34,197,94,0.12)` }}
+              className="relative bg-card/80 border border-border shadow-xl rounded-2xl my-4 px-4 py-6 text-lg text-foreground backdrop-blur-lg overflow-hidden"
+              style={{ zIndex: 10 - i, boxShadow: `0 12px 40px 0 hsla(210, 82%, 22%, 0.1)` }}
             >
-              <span className="absolute left-4 top-4 w-8 h-8 bg-green-100 rounded-full shadow-inner -rotate-12" style={{ zIndex: -1, opacity: 0.7 }} />
+              <span className="absolute start-4 top-4 w-8 h-8 bg-accent/15 rounded-full shadow-inner -rotate-12" style={{ zIndex: -1, opacity: 0.85 }} />
               {text}
             </motion.div>
           ))}
@@ -76,8 +77,8 @@ export default function About() {
       >
         <motion.img
           src={aboutImage}
-          alt="Egymak aromatic herbs"
-          className="rounded-lg shadow-2xl w-full max-w-md object-cover border-4 border-green-200"
+          alt={alt}
+          className="rounded-xl shadow-2xl w-full max-w-md object-cover border-4 border-primary/20"
           initial={{ scale: 0.9, opacity: 0 }}
           whileInView={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.8, type: "spring" }}

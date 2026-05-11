@@ -1,74 +1,13 @@
-// Mapping of herb IDs to local image filenames from public/images/herbs/
-export const herbImageMapping: { [key: number]: string } = {
-  1: '/images/herbs/Chamomile.jpg',
-  2: '/images/herbs/Peppermint.jpg',
-  3: '/images/herbs/Lemon Balm.jpg',
-  4: '/images/herbs/Rosemary.jpg',
-  5: '/images/herbs/photorealistic_basil_leaves__vibrant_green__in_a_ceramic_pot__soft_studio_lighting.png',
-  6: '/images/herbs/photorealistic_thyme_sprigs_with_small_green_leaves_and_delicate_purple_flowers__rustic_wooden_backg.png',
-  7: '/images/herbs/Lavender.jpg',
-  8: '/images/herbs/photorealistic_close_up_of_sage_leaves__silvery_green__with_soft_natural_lighting.png',
-  9: '/images/herbs/photorealistic_close_up_of_oregano_leaves__vibrant_green__with_soft_natural_lighting.png',
-  10: '/images/herbs/photorealistic_ginger_root__whole_and_sliced__on_a_rustic_wooden_surface__warm_lighting.png',
-  11: '/images/herbs/photorealistic_turmeric_root__whole_and_sliced__with_vibrant_orange_color__on_a_dark_background__stu.png',
-  12: '/images/herbs/photorealistic_cinnamon_sticks_and_ground_cinnamon__warm_brown_tones__on_a_white_background__soft_st.png',
-  13: '/images/herbs/Echinacea.jpg',
-  14: '/images/herbs/Elderberry.jpg',
-  15: '/images/herbs/Marshmallow Root.jpg',
-  16: '/images/herbs/Nettle.jpg',
-  17: '/images/herbs/Dandelion Root.jpg',
-  18: '/images/herbs/Calendula.jpg',
-  19: '/images/herbs/Parsley.jpg',
-  20: '/images/herbs/Cilantro.jpg',
-  21: '/images/herbs/Dill.jfif',
-  22: '/images/herbs/Marjoram.jpg',
-  23: '/images/herbs/Tarragon.jpg',
-  24: '/images/herbs/Hibiscus.jpg',
-  25: '/images/herbs/Rooibos.jpg',
-  26: '/images/herbs/Lemongrass.jpg',
-  27: '/images/herbs/Jasmine.jpg',
-  28: '/images/herbs/Rose Petals.jpg',
-  29: '/images/herbs/Sandalwood.jpg',
-  30: '/images/herbs/Frankincense.jpg',
-  31: '/images/herbs/Chives.jpg',
-  32: '/images/herbs/Fennel.jpg',
-  33: '/images/herbs/Coriander.jpg',
-  34: '/images/herbs/Mint.jpg',
-  35: '/images/herbs/Bay Leaves.jpg',
-  36: '/images/herbs/Echinacea.jpg', // Duplicate entry
-  37: '/images/herbs/Astragalus.jpg',
-  38: '/images/herbs/Ashwagandha.jpg',
-  39: '/images/herbs/Milk Thistle.jpg',
-  40: '/images/herbs/Valerian.jpg',
-  41: '/images/herbs/Green Tea.jpg',
-  42: '/images/herbs/White Tea.jpg',
-  43: '/images/herbs/Oolong Tea.jpg',
-  44: '/images/herbs/Pu-erh Tea.jpg',
-  45: '/images/herbs/Jasmine.jpg', // Duplicate entry
-  46: '/images/herbs/Ylang Ylang.jpg',
-  47: '/images/herbs/Patchouli.jpg',
-  48: '/images/herbs/Vetiver.jpg',
-  49: '/images/herbs/Cumin.jpg',
-  50: '/images/herbs/Fennel.jpg',
-  51: '/images/herbs/Anise.jpg',
-  52: '/images/herbs/Caraway.jpg',
-  53: '/images/herbs/Fenugreek.jpg',
-  54: '/images/herbs/Nigella Seeds.jpg',
-  55: '/images/herbs/Mahlab.jpg',
-  56: '/images/herbs/Cardamom.jpg',
-  57: '/images/herbs/Cloves.jpg',
-  58: '/images/herbs/Saffron.jpg',
-  59: '/images/herbs/Star Anise.jpg',
-  60: '/images/herbs/Catnip.jpg',
-  61: '/images/herbs/Frankincense.jpg',
-  62: '/images/herbs/Sesame.jpg',
-  63: '/images/herbs/Wormwood.jpg',
-  64: '/images/herbs/Senna.jpg',
-  65: '/images/herbs/Doum.jpg',
-  66: '/images/herbs/Carob.jpg'
-};
+import { herbsData } from '../data/herbs';
 
-// Function to get local image for herb
+export const herbImageMapping: { [key: number]: string } = herbsData.reduce(
+  (acc, herb) => {
+    acc[herb.id] = herb.image;
+    return acc;
+  },
+  {} as { [key: number]: string }
+);
+
 export const getHerbImage = (herbId: number): string => {
-  return herbImageMapping[herbId] || '/images/herbs/Chamomile.jpg'; // Fallback
+  return herbImageMapping[herbId] || '/images/herbs/Chamomile.jpg';
 };

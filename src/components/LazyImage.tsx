@@ -6,6 +6,8 @@ interface LazyImageProps {
   className?: string;
   fallback?: string;
   onError?: () => void;
+  /** Above-the-fold: load immediately (better LCP, no layout wait for observer). */
+  priority?: boolean;
 }
 
 const LazyImage: React.FC<LazyImageProps> = ({ 
@@ -13,14 +15,17 @@ const LazyImage: React.FC<LazyImageProps> = ({
   alt, 
   className = '', 
   fallback = '/placeholder.svg',
-  onError 
+  onError,
+  priority = false,
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isInView, setIsInView] = useState(false);
+  const [isInView, setIsInView] = useState(priority);
   const [hasError, setHasError] = useState(false);
   const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
+    if (priority) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -28,15 +33,16 @@ const LazyImage: React.FC<LazyImageProps> = ({
           observer.disconnect();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.01, rootMargin: '120px' }
     );
 
-    if (imgRef.current) {
-      observer.observe(imgRef.current);
+    const el = imgRef.current;
+    if (el) {
+      observer.observe(el);
     }
 
     return () => observer.disconnect();
-  }, []);
+  }, [priority]);
 
   const handleLoad = () => {
     setIsLoaded(true);
@@ -52,8 +58,8 @@ const LazyImage: React.FC<LazyImageProps> = ({
   return (
     <div ref={imgRef} className={`relative overflow-hidden ${className}`}>
       {!isLoaded && isInView && (
-        <div className="absolute inset-0 bg-gray-200 animate-pulse flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-gray-300 border-t-primary rounded-full animate-spin"></div>
+        <div className="absolute inset-0 bg-muted animate-pulse flex items-center justify-center z-[1]">
+          <div className="w-8 h-8 border-2 border-border border-t-accent rounded-full animate-spin" />
         </div>
       )}
       
@@ -61,14 +67,14 @@ const LazyImage: React.FC<LazyImageProps> = ({
         <img
           src={hasError ? fallback : src}
           alt={alt}
-          className={`transition-opacity duration-300 ${
+          className={`transition-opacity duration-500 ${
             isLoaded ? 'opacity-100' : 'opacity-0'
           } ${className}`}
           onLoad={handleLoad}
           onError={handleError}
-          loading="lazy"
+          loading={priority ? 'eager' : 'lazy'}
           decoding="async"
-          fetchpriority={isInView ? "auto" : "low"}
+          fetchPriority={priority ? 'high' : 'low'}
         />
       )}
     </div>

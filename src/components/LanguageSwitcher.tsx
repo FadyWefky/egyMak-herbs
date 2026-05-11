@@ -8,29 +8,28 @@ const LanguageSwitcher: React.FC = () => {
   const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
-    { code: 'fr', name: 'Français', flag: '🇫🇷' }
-  ];
+    { code: 'fr', name: 'Français', flag: '🇫🇷' },
+  ] as const;
 
   return (
-    <div className="relative group">
-      <button className="flex items-center space-x-2 px-3 py-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-all duration-300">
-        <Globe className="w-4 h-4" />
-        <span className="text-sm font-medium">
-          {languages.find(lang => lang.code === language)?.flag}
-        </span>
-      </button>
-      
-      <div className="absolute top-full right-0 mt-2 bg-card border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+    <div className="inline-flex items-center gap-2 rounded-[10px] border border-border/60 bg-muted/35 px-1 py-1 backdrop-blur-sm">
+      <Globe className="w-3.5 h-3.5 text-muted-foreground shrink-0 ms-1" aria-hidden />
+      <div className="mac-segmented border-0 bg-transparent p-0 gap-0.5" role="group" aria-label="Language">
         {languages.map((lang) => (
           <button
             key={lang.code}
+            type="button"
             onClick={() => setLanguage(lang.code)}
-            className={`w-full px-4 py-2 text-left hover:bg-secondary transition-colors first:rounded-t-lg last:rounded-b-lg flex items-center space-x-3 ${
-              language === lang.code ? 'bg-primary text-primary-foreground' : ''
+            className={`mac-segment px-2 py-1 min-w-[2rem] ${
+              language === lang.code ? 'mac-segment-active' : 'hover:text-foreground'
             }`}
+            title={lang.name}
+            aria-pressed={language === lang.code}
+            aria-label={lang.name}
           >
-            <span>{lang.flag}</span>
-            <span className="text-sm">{lang.name}</span>
+            <span className="text-base leading-none" aria-hidden>
+              {lang.flag}
+            </span>
           </button>
         ))}
       </div>

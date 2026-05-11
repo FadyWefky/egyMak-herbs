@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, X, Leaf } from 'lucide-react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Menu, X } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/useLanguage';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -9,6 +9,9 @@ const Header: React.FC = React.memo(() => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, language } = useLanguage();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === '/';
+  const navOnHero = isHome && !isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,55 +53,75 @@ const Header: React.FC = React.memo(() => {
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled 
-          ? 'bg-white/95 backdrop-blur-md shadow-lg mx-8 md:mx-20 mt-4 rounded-b-2xl' 
-          : 'bg-transparent'
+          ? 'header-scrolled' 
+          : 'header-transparent'
       }`}
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="flex items-center justify-center h-16 relative">
+      <div className={`max-w-6xl mx-auto px-6 ${isScrolled ? '' : ''}`}>
+        <div className="flex items-center justify-center h-16 md:h-[4.25rem] relative">
           {/* Logo - Centered */}
-          <div className="absolute left-0 flex items-center space-x-2 herb-scale-hover">
+          <div className="absolute start-0 flex items-center gap-2 herb-scale-hover">
             <img 
               src="/logo.png" 
-              alt="EGYMAK - Premium Egyptian Herbs Logo" 
-              className="w-16 h-15  rounded-lg"
+              alt={t('footer.logoAlt')}
+              width={64}
+              height={64}
+              className="w-14 h-14 md:w-16 md:h-16 rounded-xl object-contain shadow-sm"
             />
           </div>
 
           {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center space-x-8">
+          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
             {navigationItems.map((item) => (
               item.href.startsWith('#') ? (
                 <a
                   key={item.key}
                   href={item.href}
                   onClick={(e) => handleNavClick(e, item.href)}
-                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group px-3 py-2"
+                  className={`transition-colors duration-300 font-semibold relative group px-3 py-2 text-sm uppercase tracking-wide ${
+                    navOnHero
+                      ? 'text-primary-foreground/95 hover:text-accent'
+                      : 'text-foreground hover:text-accent'
+                  }`}
                 >
                   {t(item.key)}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute bottom-0 start-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
                 </a>
               ) : (
                 <Link
                   key={item.key}
                   to={item.href}
-                  className="text-foreground hover:text-primary transition-colors duration-300 font-medium relative group px-3 py-2"
+                  className={`transition-colors duration-300 font-semibold relative group px-3 py-2 text-sm uppercase tracking-wide ${
+                    navOnHero
+                      ? 'text-primary-foreground/95 hover:text-accent'
+                      : 'text-foreground hover:text-accent'
+                  }`}
                 >
                   {t(item.key)}
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full"></span>
+                  <span className="absolute bottom-0 start-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
                 </Link>
               )
             ))}
           </nav>
 
           {/* Right side controls */}
-          <div className="absolute right-0 flex items-center space-x-4">
-            <LanguageSwitcher />
+          <div className="absolute end-0 flex items-center gap-3 md:gap-4">
+            <div
+              className={
+                navOnHero
+                  ? '[&_button]:bg-primary-foreground/12 [&_button]:hover:bg-primary-foreground/20 [&_button]:text-primary-foreground [&_button]:border [&_button]:border-primary-foreground/25'
+                  : ''
+              }
+            >
+              <LanguageSwitcher />
+            </div>
             
             {/* Mobile menu button */}
             <button
-              className="md:hidden p-2 rounded-lg hover:bg-secondary transition-colors duration-200"
+              className={`md:hidden p-2 rounded-xl transition-colors duration-200 ${
+                navOnHero ? 'hover:bg-primary-foreground/10 text-primary-foreground' : 'hover:bg-secondary text-foreground'
+              }`}
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -108,10 +131,10 @@ const Header: React.FC = React.memo(() => {
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className={`md:hidden border-t bg-card/95 backdrop-blur-md ${
-            isScrolled ? 'rounded-b-2xl' : ''
+          <div className={`md:hidden border-t border-border/60 bg-card/98 backdrop-blur-lg ${
+            isScrolled ? 'rounded-b-2xl' : 'shadow-lg'
           }`}>
-            <nav className="py-4 space-y-2">
+            <nav className="py-4 space-y-1">
               {navigationItems.map((item) => (
                 item.href.startsWith('#') ? (
                   <a
@@ -121,7 +144,7 @@ const Header: React.FC = React.memo(() => {
                       handleNavClick(e, item.href);
                       setIsMenuOpen(false);
                     }}
-                    className="block px-4 py-2 text-foreground hover:text-primary hover:bg-secondary/50 transition-colors duration-300"
+                    className="block px-4 py-3 text-foreground hover:text-accent hover:bg-secondary/60 rounded-lg transition-colors duration-300 font-medium"
                   >
                     {t(item.key)}
                   </a>
@@ -130,7 +153,7 @@ const Header: React.FC = React.memo(() => {
                     key={item.key}
                     to={item.href}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-2 text-foreground hover:text-primary hover:bg-secondary/50 transition-colors duration-300"
+                    className="block px-4 py-3 text-foreground hover:text-accent hover:bg-secondary/60 rounded-lg transition-colors duration-300 font-medium"
                   >
                     {t(item.key)}
                   </Link>

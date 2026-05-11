@@ -25,10 +25,10 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
-				serif: ['Lora', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
-				heading: ['Lora', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
-				body: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				sans: ['Montserrat', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+				serif: ['Montserrat', 'Georgia', 'Cambria', 'serif'],
+				heading: ['Montserrat', 'system-ui', 'sans-serif'],
+				body: ['Montserrat', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
 			},
 			colors: {
 				border: 'hsl(var(--border))',

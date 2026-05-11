@@ -31,25 +31,25 @@ const Categories: React.FC = () => {
     {
       key: 'culinary',
       image: placeholderImages['culinary-herbs.jpg'],
-      color: 'from-green-500 to-emerald-600',
+      color: 'from-sky-500 to-blue-900',
       delay: '0ms'
     },
     {
       key: 'medicinal',
       image: placeholderImages['medicinal-herbs.jpg'],
-      color: 'from-red-500 to-pink-600',
+      color: 'from-blue-700 to-slate-900',
       delay: '200ms'
     },
     {
       key: 'aromatic',
       image: placeholderImages['aromatic-herbs.jpg'],
-      color: 'from-purple-500 to-violet-600',
+      color: 'from-indigo-600 to-cyan-600',
       delay: '400ms'
     },
     {
       key: 'tea',
       image: placeholderImages['tea-herbs.jpg'],
-      color: 'from-amber-500 to-orange-600',
+      color: 'from-slate-700 to-sky-500',
       delay: '600ms'
     }
   ];
@@ -110,10 +110,11 @@ const Categories: React.FC = () => {
         {/* Bottom CTA */}
         <div className={`text-center mt-16 scroll-animate delay-800 ${isVisible ? 'animate-slide-up' : ''}`}>
           <button 
+            type="button"
             onClick={() => navigate('/categories')}
             className="herb-button-primary"
           >
-            Explore All Categories
+            {t('common.exploreAllCategories')}
           </button>
         </div>
       </div>

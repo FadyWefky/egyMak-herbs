@@ -3,11 +3,23 @@ import { en } from './lang.en';
 import { ar } from './lang.ar';
 import { fr } from './lang.fr';
 import { updateDocumentLanguage } from '../utils/updateDocumentLanguage';
+import type { TestimonialItem } from './localeTypes';
+
+type FaqItem = { question: string; answer: string };
 
 interface LanguageContextType {
   language: string;
   setLanguage: (lang: string) => void;
-  t: (key: string) => string;
+  t: (key: string, vars?: Record<string, string | number>) => string;
+  getTestimonialItems: () => TestimonialItem[];
+  getFaqItems: () => FaqItem[];
+  getLegal: (page: 'terms' | 'privacy' | 'cookies' | 'shipping' | 'returns' | 'support') => {
+    pageTitle: string;
+    sectionTitle: string;
+    p1: string;
+    p2: string;
+    p3?: string;
+  };
   getHerbName: (herb: any) => string;
   getHerbDescription: (herb: any) => string;
   getHerbBenefits: (herb: any) => string[];
@@ -44,19 +56,46 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     updateDocumentLanguage(language);
   }, [language]);
 
-  // Support nested keys like 'getintouch.title'
-  const t = (key: string): string => {
+  // Support nested keys like 'getintouch.title' and "{{var}}" substitution
+  const t = (key: string, vars?: Record<string, string | number>): string => {
     if (typeof key !== 'string') return '';
-    const keys = key.split('.');
+    const keyParts = key.split('.');
     let value: unknown = translations[language as keyof typeof translations];
-    for (const k of keys) {
+    for (const k of keyParts) {
       if (value && typeof value === 'object' && k in value) {
         value = (value as Record<string, unknown>)[k];
       } else {
         return key;
       }
     }
-    return typeof value === 'string' ? value : key;
+    let out = typeof value === 'string' ? value : key;
+    if (vars && typeof out === 'string') {
+      for (const [vk, vv] of Object.entries(vars)) {
+        out = out.replace(new RegExp(`\\{\\{${vk}\\}\\}`, 'g'), String(vv));
+      }
+    }
+    return out;
+  };
+
+  const getTestimonialItems = (): TestimonialItem[] => {
+    const tr = translations[language as keyof typeof translations] as typeof en;
+    const items = tr.testimonials?.items;
+    if (Array.isArray(items) && items.length > 0) return items;
+    return en.testimonials.items;
+  };
+
+  const getFaqItems = (): FaqItem[] => {
+    const tr = translations[language as keyof typeof translations] as typeof en;
+    const items = tr.faq?.items;
+    if (Array.isArray(items) && items.length > 0) return items as FaqItem[];
+    return en.faq.items as FaqItem[];
+  };
+
+  const getLegal = (page: 'terms' | 'privacy' | 'cookies' | 'shipping' | 'returns' | 'support') => {
+    const tr = translations[language as keyof typeof translations] as typeof en;
+    const block = tr.legal?.[page];
+    if (block) return block as { pageTitle: string; sectionTitle: string; p1: string; p2: string; p3?: string };
+    return en.legal[page] as { pageTitle: string; sectionTitle: string; p1: string; p2: string; p3?: string };
   };
 
   // Helper functions for herb data
@@ -137,6 +176,9 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       language, 
       setLanguage, 
       t, 
+      getTestimonialItems,
+      getFaqItems,
+      getLegal,
       getHerbName, 
       getHerbDescription, 
       getHerbBenefits, 

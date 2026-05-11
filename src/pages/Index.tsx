@@ -4,7 +4,8 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import ScrollToTop from '../components/ScrollToTop';
-import LoadingSpinner from '../components/LoadingSpinner';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useLanguage } from '../contexts/useLanguage';
 
 const About = React.lazy(() => import('../components/About'));
 const Categories = React.lazy(() => import('../components/Categories'));
@@ -25,11 +26,25 @@ const Terms = React.lazy(() => import('./Terms'));
 const Cookies = React.lazy(() => import('./Cookies'));
 const NotFound = React.lazy(() => import('./NotFound'));
 
-const PageLoadingSpinner = () => (
-  <div className="flex items-center justify-center min-h-[400px]">
-    <LoadingSpinner size="lg" text="Loading..." />
-  </div>
-);
+const PageLoadingSpinner = () => {
+  const { t } = useLanguage();
+  return (
+    <div
+      className="container mx-auto px-4 py-16 max-w-3xl space-y-6"
+      aria-busy="true"
+      aria-label={t('common.loading')}
+    >
+      <Skeleton className="h-10 w-2/3 max-w-md rounded-[10px] bg-muted" />
+      <Skeleton className="h-4 w-full rounded-md bg-muted" />
+      <Skeleton className="h-4 w-[90%] rounded-md bg-muted" />
+      <Skeleton className="h-4 w-[75%] rounded-md bg-muted" />
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+        <Skeleton className="h-36 rounded-[11px] bg-muted" />
+        <Skeleton className="h-36 rounded-[11px] bg-muted" />
+      </div>
+    </div>
+  );
+};
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
