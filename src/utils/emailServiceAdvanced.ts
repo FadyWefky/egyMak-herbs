@@ -71,7 +71,7 @@ export const sendContactEmailViaEmailJS = async (formData: ContactFormData): Pro
       from_name: formData.username,
       from_email: formData.email,
       message: formData.message,
-      to_email: 'egymak@gmail.com',
+      to_email: 'egymak.mi@gmail.com',
     };
 
     await emailjs.send(serviceId, templateId, templateParams, publicKey);
@@ -95,7 +95,7 @@ Message: ${formData.message}
 Timestamp: ${new Date().toLocaleString()}
     `.trim();
 
-    const mailtoLink = `mailto:egymak@gmail.com?subject=New Contact Form Submission from EgyMak Herbs&body=${encodeURIComponent(emailContent)}`;
+    const mailtoLink = `mailto:egymak.mi@gmail.com?subject=New Contact Form Submission from EgyMak Herbs&body=${encodeURIComponent(emailContent)}`;
     
     window.open(mailtoLink, '_blank');
     return true;

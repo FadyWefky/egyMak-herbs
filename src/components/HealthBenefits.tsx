@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/useLanguage';
 import placeholderImages from '../utils/placeholderImages';
 import LazyImage from './LazyImage';
+import SectionTitle from './SectionTitle';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const HealthBenefits: React.FC = () => {
   const { language, t } = useLanguage();
   const navigate = useNavigate();
+  const lp = useLocalizedPath();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -67,24 +70,18 @@ const HealthBenefits: React.FC = () => {
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
-          <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
-            {t('healthBenefits.title')}
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            {t('healthBenefits.subtitle')}
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mt-6" />
+        <div className={`scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
+          <SectionTitle title={t('healthBenefits.title')} subtitle={t('healthBenefits.subtitle')} align="center" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {benefits.map((benefit, index) => (
             <div
               key={benefit.id}
-              className={`group herb-card cursor-pointer text-center scroll-animate delay-${(index + 1) * 100} ${
+              className={`group relative herb-card cursor-pointer text-center scroll-animate delay-${(index + 1) * 100} ${
                 isVisible ? 'animate-slide-up' : ''
               }`}
-              onClick={() => navigate(`/health-benefits/${benefit.id}`)}
+              onClick={() => navigate(lp(`/health-benefits/${benefit.id}`))}
             >
               <div className="relative mb-6 overflow-hidden rounded-2xl">
                 <LazyImage
@@ -103,7 +100,7 @@ const HealthBenefits: React.FC = () => {
                 {t(`healthBenefits.cards.${benefit.id}.description`)}
               </p>
 
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg" />
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/[0.04] to-slate-500/[0.06] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
           ))}
         </div>
@@ -119,7 +116,7 @@ const HealthBenefits: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 type="button"
-                onClick={() => navigate('/products')}
+                onClick={() => navigate(lp('/products'))}
                 className="herb-button-primary"
               >
                 {t('common.exploreProducts')}

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Star, Quote } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
+import SectionTitle from './SectionTitle';
 
 const Testimonials: React.FC = () => {
   const { language, t, getTestimonialItems } = useLanguage();
@@ -32,18 +33,22 @@ const Testimonials: React.FC = () => {
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
-          <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
-            {t('testimonials.title')}
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t('testimonials.subtitle')}
+        <div className={`scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
+          <SectionTitle
+            title={t('testimonials.title')}
+            subtitle={t('testimonials.subtitle')}
+            align="center"
+            className="!mb-3 md:!mb-4"
+          />
+          <p className="mx-auto mb-12 max-w-2xl text-center text-sm text-muted-foreground/90 md:mb-16 md:text-start">
+            {t('testimonials.moderationNote')}
           </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mt-6" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial, index) => {
+            const starCount = Math.min(5, Math.max(1, testimonial.rating ?? 5));
+            return (
             <div
               key={`${testimonial.name}-${index}`}
               className={`group herb-card relative scroll-animate delay-${(index + 1) * 100} ${
@@ -55,7 +60,7 @@ const Testimonials: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-1 mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
+                {[...Array(starCount)].map((_, i) => (
                   <Star key={i} className="w-5 h-5 fill-accent text-accent" />
                 ))}
               </div>
@@ -79,26 +84,35 @@ const Testimonials: React.FC = () => {
 
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg pointer-events-none" />
             </div>
-          ))}
+          );
+          })}
         </div>
 
         <div className={`mt-16 scroll-animate delay-900 ${isVisible ? 'animate-slide-up' : ''}`}>
           <div className="mac-window bg-gradient-to-r from-primary to-accent p-8 text-primary-foreground">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
               <div>
-                <div className="text-3xl font-bold mb-2 counting-animation">10,000+</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">
+                  {t('testimonials.statHappyCustomersValue')}
+                </div>
                 <div className="text-primary-foreground/80">{t('testimonials.statHappyCustomers')}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-2 counting-animation">50+</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">
+                  {t('testimonials.statHerbVarietiesValue')}
+                </div>
                 <div className="text-primary-foreground/80">{t('testimonials.statHerbVarieties')}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-2 counting-animation">4.9</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">
+                  {t('testimonials.statCustomerRatingValue')}
+                </div>
                 <div className="text-primary-foreground/80">{t('testimonials.statCustomerRating')}</div>
               </div>
               <div>
-                <div className="text-3xl font-bold mb-2 counting-animation">15+</div>
+                <div className="text-3xl font-bold mb-2 counting-animation">
+                  {t('testimonials.statYearsExperienceValue')}
+                </div>
                 <div className="text-primary-foreground/80">{t('testimonials.statYearsExperience')}</div>
               </div>
             </div>

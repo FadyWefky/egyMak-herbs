@@ -12,6 +12,7 @@ export const en = {
     exploreAllCategories: "Explore All Categories",
     backToHome: "Back to Home",
     copyright: "© 2026 EGYMAK. All rights reserved.",
+    language: "Language",
   },
   hero: {
     badge: "100% Natural & Organic",
@@ -41,11 +42,12 @@ export const en = {
     shippingInfo: "Shipping Info",
     returns: "Returns",
     support: "Support",
+    sourcing: "Quality & sourcing",
     paymentMethods: "Payment Methods",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
     cookiePolicy: "Cookie Policy",
-    locationShort: "Cairo, Egypt",
+    locationShort: "Abshaway, Faiyum, Egypt",
     logoAlt: "EGYMAK — Premium Egyptian Herbs logo",
   },
   contactForm: {
@@ -55,15 +57,20 @@ export const en = {
     messagePlaceholder: "Your message…",
     send: "Send",
     sending: "Sending…",
-    fallbackHint: "Or contact us directly: egymak@gmail.com",
+    fallbackHint: "Or email us directly: egymak.mi@gmail.com",
     errorName: "Name is required",
     errorEmailRequired: "Email is required",
     errorEmailInvalid: "Invalid email format",
     errorMessage: "Message is required",
-    successMessage:
-      "Your email client has opened! Please send the message from there.",
+    successMessageSent: 'Thank you — your message was delivered successfully.',
+    successMessageMailto:
+      'Your email app should open with your message. Please tap Send in that window to deliver it to us.',
     errorSend:
       "Failed to send message. Please try again or contact us directly.",
+    errorMessageModeration:
+      "Your message looks automated or hard to read. Please use normal sentences and fewer links.",
+    errorMessageInappropriate:
+      "This message cannot be sent. Please remove inappropriate content and try again.",
   },
   herbModal: {
     description: "Description",
@@ -102,56 +109,97 @@ export const en = {
     products: "products",
     listing: "{{count}} products",
     back: "Back to Home",
+    pickCategory: "Browse by herb type",
+    pickGroup: "Choose a family",
+    groups: {
+      paper: "Paper & culinary",
+      perfume: "Aromatic & perfume",
+      other: "Medicinal & more",
+    },
+    groupsSubtitle: {
+      paper: "Infusions, kitchen herbs, and tea-grade botanicals.",
+      perfume: "Essential-oil rich plants for fragrance and aromatics.",
+      other: "Traditional wellness herbs and therapeutic botanicals.",
+    },
   },
   healthBenefitsPage: {
     title: "Health Benefits",
     back: "Back to Home",
     subtitle: "Learn how our herbs support your wellness",
   },
+  sourcingPage: {
+    metaTitle: "Quality, sourcing & traceability | EGYMAK",
+    title: "From Egypt’s soil to your shelf",
+    subtitle:
+      "How we select, dry, and pack aromatic and medicinal herbs while supporting local growers.",
+    c1Title: "Farm partnerships",
+    c1Body:
+      "We work with growers in Fayoum and across Egypt who follow sensible cultivation practices and harvest at the right maturity.",
+    c2Title: "Careful drying & storage",
+    c2Body:
+      "Temperature, humidity, and light are controlled to protect volatile oils — what gives herbs their aroma and character.",
+    c3Title: "Honest packaging",
+    c3Body:
+      "Clear labels, batch-friendly packs, and guidance on home storage so you get consistent results in the kitchen and in infusions.",
+    pLead:
+      "Herbs are agricultural products: weather and seasons create natural variation. We aim for steady quality and transparent communication when a batch differs from the last.",
+  },
   testimonials: {
     title: "Customer Reviews",
     subtitle:
-      "Discover what our customers say about their experience with Egymak herbs",
+      "Real feedback from people who use our herbs in everyday cooking and wellness routines.",
+    moderationNote:
+      "Featured quotes are curated for clarity; we avoid exaggerated claims and keep wording close to typical customer feedback.",
     statHappyCustomers: "Happy Customers",
     statHerbVarieties: "Herb Varieties",
     statCustomerRating: "Customer Rating",
     statYearsExperience: "Years Experience",
+    statHappyCustomersValue: "500+",
+    statHerbVarietiesValue: "50+",
+    statCustomerRatingValue: "4.7",
+    statYearsExperienceValue: "5+",
     items: [
       {
         name: "Fatima Ahmed",
         location: "Cairo, Egypt",
-        text: "Herbs from Egymak have completely transformed my life. Excellent quality and amazing results for overall health.",
+        text: "Consistent quality and fresh aroma. I use the chamomile and ginger mainly for evening tea.",
         herb: "Chamomile & Ginger",
+        rating: 5,
       },
       {
         name: "Mohamed Ali",
         location: "Alexandria, Egypt",
-        text: "I've been using Egymak herbs for two years. Amazing taste and clear health benefits. Highly recommended.",
+        text: "I have ordered several times over two years. Taste and packaging are reliable, and delivery has been smooth.",
         herb: "Peppermint & Lavender",
+        rating: 5,
       },
       {
         name: "Sara Mahmoud",
         location: "Luxor, Egypt",
-        text: "Turmeric and Basil from Egymak have helped me greatly in improving digestion and strengthening immunity.",
+        text: "Turmeric and basil work well in our kitchen. Good value for dried herbs that still smell potent.",
         herb: "Turmeric & Basil",
+        rating: 4,
       },
       {
         name: "Ahmed Hassan",
         location: "Hurghada, Egypt",
-        text: "Very high quality and excellent customer service. The herbs are fresh and very beneficial.",
+        text: "Clear communication when I had a question about an order. Sage and thyme are what I use most.",
         herb: "Sage & Thyme",
+        rating: 5,
       },
       {
         name: "Nour El-Din",
         location: "Aswan, Egypt",
-        text: "100% natural herbs from Egypt. I recommend them to anyone looking for natural health.",
+        text: "Straightforward natural products from Egypt. I buy cinnamon and lemon balm mainly for infusions.",
         herb: "Cinnamon & Lemon Balm",
+        rating: 4,
       },
       {
         name: "Mariam Saad",
         location: "Minya, Egypt",
-        text: "Amazing experience with Egymak herbs. They helped me relax and improve sleep.",
+        text: "Chamomile and lavender are part of my night routine. Mild flavour and no odd aftertaste.",
         herb: "Chamomile & Lavender",
+        rating: 5,
       },
     ] as TestimonialItem[],
   },
@@ -288,10 +336,10 @@ export const en = {
     why1: "Authentic Egyptian Quality",
     why2: "Accurate Scientific Information",
   },
-  // Navigation
   home: "Home",
   categories: "Categories",
   about: "About",
+  sourcing: "Quality & sourcing",
   contact: "Contact",
   cart: "Cart",
   heroTitle: "Premium Natural Herbs",
@@ -318,6 +366,32 @@ export const en = {
   customerCare: "Customer Care",
   followUs: "Follow Us",
   aboutTitle: "About Egymak",
+  aboutPage: {
+    subtitle: "Roots in Fayoum — leaves on tables around the world",
+    stat1Value: "50+",
+    stat1Label: "Herb references in our catalogue",
+    stat2Value: "4",
+    stat2Label: "Core ranges we curate year-round",
+    stat3Value: "100%",
+    stat3Label: "Natural focus in our sourcing ethos",
+    pillar1Title: "Traceable batches",
+    pillar1Body:
+      "We document origin, harvest window, and drying method so chefs and home brewers know what they are steeping.",
+    pillar2Title: "Sensory first",
+    pillar2Body:
+      "Aroma, colour, and cut size matter as much as certificates — we cup, rub, and cup again before a lot is approved.",
+    pillar3Title: "Grower relationships",
+    pillar3Body:
+      "Fair pacing on orders and predictable pickups help small farms invest in better post-harvest handling, not just volume.",
+    timeline1: "Early days — pilot drying lines and export paperwork in the Nile valley.",
+    timeline2: "Expansion — co-packed lines for retail partners across MENA and EU.",
+    timeline3: "Today — direct storefront, tighter QC photos, and faster feedback loops with customers.",
+    quote: "Herbs should taste like the season they came from — not like a marketing slogan.",
+    quoteRole: "EGYMAK product ethos",
+    beltTitle: "Visit the fields (virtually)",
+    beltBody:
+      "We publish seasonal notes on climate, rainfall, and how they shaped each lot — follow the sourcing page for the latest.",
+  },
   aboutParagraph1:
     "Egymak is a leading company in the field of aromatic and medicinal plants, dedicated to providing high-quality natural products sourced from Egypt’s rich agricultural lands. With a commitment to sustainability and innovation, Egymak partners with local farmers to ensure the finest herbs and botanicals reach global markets.",
   aboutParagraph2:
@@ -336,11 +410,11 @@ export const en = {
     subtitlePhone:
       "Ready to order? Call us now for a quick and easy purchase! Our team is standing by to assist you.",
     location: "Location",
-    address: "123 Herbal St, Cairo, Egypt",
+    address: "Abshaway, Faiyum, Egypt",
     phone: "Phone",
     phoneNumber: "+201032013000",
     email: "Email",
-    emailAddress: "egymak@gmail.com",
+    emailAddress: "egymak.mi@gmail.com",
     facebook: "Facebook",
     instagram: "Instagram",
     twitter: "Twitter",

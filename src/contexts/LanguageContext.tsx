@@ -3,6 +3,7 @@ import { en } from './lang.en';
 import { ar } from './lang.ar';
 import { fr } from './lang.fr';
 import { updateDocumentLanguage } from '../utils/updateDocumentLanguage';
+import { localeFromPathname } from '../utils/localePath';
 import type { TestimonialItem } from './localeTypes';
 
 type FaqItem = { question: string; answer: string };
@@ -34,15 +35,15 @@ export const LanguageContext = createContext<LanguageContextType | undefined>(un
 
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Initialize language from localStorage or default to 'en'
   const [language, setLanguageState] = useState(() => {
     if (typeof window !== 'undefined') {
+      const fromUrl = localeFromPathname(window.location.pathname);
+      if (fromUrl) return fromUrl;
       return localStorage.getItem('site_language') || 'en';
     }
     return 'en';
   });
 
-  // Persist language to localStorage
   const setLanguage = (lang: string) => {
     setLanguageState(lang);
     if (typeof window !== 'undefined') {
@@ -51,12 +52,10 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   };
 
-  // Update document language on mount
   useEffect(() => {
     updateDocumentLanguage(language);
   }, [language]);
 
-  // Support nested keys like 'getintouch.title' and "{{var}}" substitution
   const t = (key: string, vars?: Record<string, string | number>): string => {
     if (typeof key !== 'string') return '';
     const keyParts = key.split('.');
@@ -98,7 +97,6 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     return en.legal[page] as { pageTitle: string; sectionTitle: string; p1: string; p2: string; p3?: string };
   };
 
-  // Helper functions for herb data
   const getHerbName = (herb: any): string => {
     if (!herb) return '';
     switch (language) {

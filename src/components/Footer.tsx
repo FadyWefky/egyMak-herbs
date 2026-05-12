@@ -3,29 +3,33 @@ import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react'
 import { useLanguage } from '../contexts/useLanguage';
 import { useNavigate } from 'react-router-dom';
 import ContactForm from './ContactForm';
+import { SOCIAL_URLS } from '../constants/social';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const Footer: React.FC = React.memo(() => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
+  const lp = useLocalizedPath();
 
   const quickLinks = [
-    { key: 'home', href: '/', action: () => navigate('/') },
-    { key: 'categories', href: '/categories', action: () => navigate('/categories') },
-    { key: 'about', href: '/about', action: () => navigate('/about') },
-    { key: 'products', href: '/products', action: () => navigate('/products') },
+    { key: 'home', action: () => navigate(lp('/')) },
+    { key: 'categories', action: () => navigate(lp('/categories')) },
+    { key: 'about', action: () => navigate(lp('/about')) },
+    { key: 'products', action: () => navigate(lp('/products')) },
   ];
 
   const customerCareLinks = [
-    { key: 'faq', action: () => navigate('/faq') },
-    { key: 'shippingInfo', action: () => navigate('/shipping') },
-    { key: 'returns', action: () => navigate('/returns') },
-    { key: 'support', action: () => navigate('/support') },
+    { key: 'faq', action: () => navigate(lp('/faq')) },
+    { key: 'shippingInfo', action: () => navigate(lp('/shipping')) },
+    { key: 'returns', action: () => navigate(lp('/returns')) },
+    { key: 'support', action: () => navigate(lp('/support')) },
+    { key: 'sourcing', action: () => navigate(lp('/sourcing')) },
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: 'https://facebook.com/egymak', color: 'hover:text-sky-300' },
-    { icon: Instagram, href: 'https://instagram.com/egymak', color: 'hover:text-sky-200' },
-    { icon: Twitter, href: 'https://twitter.com/egymak', color: 'hover:text-sky-300' },
+    { icon: Facebook, href: SOCIAL_URLS.facebook, color: 'hover:text-sky-300', name: t('getintouch.facebook') },
+    { icon: Instagram, href: SOCIAL_URLS.instagram, color: 'hover:text-sky-200', name: t('getintouch.instagram') },
+    { icon: Twitter, href: SOCIAL_URLS.twitter, color: 'hover:text-sky-300', name: t('getintouch.twitter') },
   ];
 
   const handleLinkClick = (action: () => void) => {
@@ -41,14 +45,17 @@ const Footer: React.FC = React.memo(() => {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           <div className="space-y-6">
-            <div className="flex items-center gap-2">
-              <img
-                src="/logo.png"
-                alt={t('footer.logoAlt')}
-                className="w-8 h-8 object-contain"
-                width={32}
-                height={32}
-              />
+            <div className="flex items-center gap-3">
+              <div className="rounded-xl bg-white/95 p-1 ring-2 ring-white/70 shadow-md">
+                <img
+                  src="/logo.png"
+                  alt={t('footer.logoAlt')}
+                  className="h-10 w-10 object-contain sm:h-11 sm:w-11"
+                  width={44}
+                  height={44}
+                  decoding="async"
+                />
+              </div>
               <span className="text-xl font-bold">EGYMAK</span>
             </div>
             <div>
@@ -58,8 +65,8 @@ const Footer: React.FC = React.memo(() => {
             <div className="space-y-2">
               <div className="flex items-center gap-3">
                 <Mail className="w-4 h-4 shrink-0" />
-                <a href="mailto:egymak@gmail.com" className="text-sm hover:text-sky-300 transition-colors">
-                  egymak@gmail.com
+                <a href="mailto:egymak.mi@gmail.com" className="text-sm hover:text-sky-300 transition-colors">
+                  egymak.mi@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -120,6 +127,7 @@ const Footer: React.FC = React.memo(() => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
+                  aria-label={social.name}
                   className={`w-10 h-10 mac-panel flex items-center justify-center transition-all duration-300 ${social.color} hover:scale-110 bg-primary-foreground/5`}
                 >
                   <social.icon className="w-5 h-5" />
@@ -153,21 +161,21 @@ const Footer: React.FC = React.memo(() => {
             <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-sm">
               <button
                 type="button"
-                onClick={() => navigate('/privacy')}
+                onClick={() => navigate(lp('/privacy'))}
                 className="text-primary-foreground/60 hover:text-sky-300 transition-colors duration-300"
               >
                 {t('footer.privacyPolicy')}
               </button>
               <button
                 type="button"
-                onClick={() => navigate('/terms')}
+                onClick={() => navigate(lp('/terms'))}
                 className="text-primary-foreground/60 hover:text-sky-300 transition-colors duration-300"
               >
                 {t('footer.termsOfService')}
               </button>
               <button
                 type="button"
-                onClick={() => navigate('/cookies')}
+                onClick={() => navigate(lp('/cookies'))}
                 className="text-primary-foreground/60 hover:text-sky-300 transition-colors duration-300"
               >
                 {t('footer.cookiePolicy')}

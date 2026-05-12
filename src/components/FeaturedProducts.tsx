@@ -5,10 +5,13 @@ import { useLanguage } from '../contexts/useLanguage';
 import { herbsData, Herb } from '../data/herbs';
 import HerbModal from './HerbModal';
 import LazyImage from './LazyImage';
+import SectionTitle from './SectionTitle';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const FeaturedProducts: React.FC = () => {
   const { t, language, getHerbName } = useLanguage();
   const navigate = useNavigate();
+  const lp = useLocalizedPath();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [selectedHerb, setSelectedHerb] = useState<Herb | null>(null);
@@ -54,13 +57,8 @@ const FeaturedProducts: React.FC = () => {
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
-          <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
-            {t('featuredProducts')}
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            {t('featured.subtitle')}
-          </p>
+        <div className={`scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
+          <SectionTitle title={t('featuredProducts')} subtitle={t('featured.subtitle')} align="center" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -76,7 +74,7 @@ const FeaturedProducts: React.FC = () => {
                 onClick={() => handleHerbClick(herb)}
               >
                 {herb.badge && (
-                  <div className="absolute top-4 start-4 z-10 px-3 py-1 bg-accent text-accent-foreground text-xs font-medium rounded-full">
+                  <div className="absolute top-4 start-4 z-10 rounded-full bg-primary/90 px-3 py-1 text-xs font-medium text-primary-foreground">
                     {herb.badge}
                   </div>
                 )}
@@ -103,11 +101,11 @@ const FeaturedProducts: React.FC = () => {
 
                 <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-xs text-muted-foreground bg-secondary px-2 py-1 rounded-md">
+                    <span className="rounded-md bg-secondary px-2 py-1 text-xs text-muted-foreground">
                       {categoryLabel(herb.category)}
                     </span>
-                    <div className="flex items-center gap-1 shrink-0">
-                      <Star className="w-4 h-4 fill-accent text-accent" />
+                    <div className="flex shrink-0 items-center gap-1">
+                      <Star className="h-4 w-4 fill-primary/25 text-primary" />
                       <span className="text-sm font-medium">{herb.rating}</span>
                       <span className="text-xs text-muted-foreground">({herb.reviews})</span>
                     </div>
@@ -123,7 +121,7 @@ const FeaturedProducts: React.FC = () => {
         </div>
 
         <div className={`text-center mt-12 scroll-animate delay-800 ${isVisible ? 'animate-slide-up' : ''}`}>
-          <button type="button" onClick={() => navigate('/products')} className="herb-button-primary">
+          <button type="button" onClick={() => navigate(lp('/products'))} className="herb-button-primary">
             {t('common.viewAllProducts')}
           </button>
         </div>

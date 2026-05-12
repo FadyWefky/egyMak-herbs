@@ -3,6 +3,7 @@ import { useLanguage } from '../contexts/useLanguage';
 import { herbsData } from '../data/herbs';
 import placeholderImages from '../utils/placeholderImages';
 import LazyImage from './LazyImage';
+import SectionTitle from './SectionTitle';
 
 const HerbStats: React.FC = () => {
   const { language, t } = useLanguage();
@@ -81,14 +82,8 @@ const HerbStats: React.FC = () => {
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
-          <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
-            {t('herbStats.title')}
-          </h2>
-          <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
-            {t('herbStats.subtitle')}
-          </p>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full mt-6" />
+        <div className={`scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
+          <SectionTitle title={t('herbStats.title')} subtitle={t('herbStats.subtitle')} align="center" />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

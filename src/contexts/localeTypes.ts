@@ -3,6 +3,8 @@ export type TestimonialItem = {
   location: string;
   text: string;
   herb: string;
+  /** Star display 1–5; omit for default. */
+  rating?: number;
 };
 
 export type HealthBenefitCardCopy = {

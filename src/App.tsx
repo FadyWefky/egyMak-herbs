@@ -10,7 +10,14 @@ import { initEnhancedScrolling } from "./utils/smoothScroll";
 import { initCountingAnimations } from "./utils/countingAnimation";
 import { initScrollAnimations, addScrollAnimationStyles } from "./utils/scrollAnimations";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   useEffect(() => {

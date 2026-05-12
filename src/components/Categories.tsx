@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { useLanguage } from '../contexts/useLanguage';
 import placeholderImages from '../utils/placeholderImages';
 import LazyImage from './LazyImage';
+import SectionTitle from './SectionTitle';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const Categories: React.FC = () => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
+  const lp = useLocalizedPath();
   const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -43,7 +46,7 @@ const Categories: React.FC = () => {
     {
       key: 'aromatic',
       image: placeholderImages['aromatic-herbs.jpg'],
-      color: 'from-indigo-600 to-cyan-600',
+      color: 'from-indigo-600 to-slate-800',
       delay: '400ms'
     },
     {
@@ -62,12 +65,8 @@ const Categories: React.FC = () => {
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="container mx-auto px-4">
-        {/* Section Header */}
-        <div className={`text-center mb-16 scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
-          <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
-            {t('categoriesTitle')}
-          </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
+        <div className={`scroll-animate ${isVisible ? 'animate-slide-up' : ''}`}>
+          <SectionTitle title={t('categoriesTitle')} subtitle={t('categoriesPage.subtitle')} align="center" />
         </div>
 
         {/* Categories Grid */}
@@ -75,10 +74,10 @@ const Categories: React.FC = () => {
           {categories.map((category, index) => (
             <div
               key={category.key}
-              className={`group herb-card cursor-pointer scroll-animate delay-${(index + 1) * 100} ${
+              className={`group relative herb-card cursor-pointer overflow-hidden scroll-animate delay-${(index + 1) * 100} ${
                 isVisible ? 'animate-slide-up' : ''
               }`}
-              onClick={() => navigate('/categories')}
+              onClick={() => navigate(lp('/categories'))}
             >
                   {/* Image Container */}
                   <div className="relative mb-6 overflow-hidden rounded-2xl">
@@ -101,8 +100,7 @@ const Categories: React.FC = () => {
                 </p>
               </div>
 
-              {/* Hover Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-lg"></div>
+              <div className="pointer-events-none absolute inset-0 rounded-[inherit] bg-gradient-to-br from-primary/[0.04] to-slate-600/[0.05] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             </div>
           ))}
         </div>
@@ -111,7 +109,7 @@ const Categories: React.FC = () => {
         <div className={`text-center mt-16 scroll-animate delay-800 ${isVisible ? 'animate-slide-up' : ''}`}>
           <button 
             type="button"
-            onClick={() => navigate('/categories')}
+            onClick={() => navigate(lp('/categories'))}
             className="herb-button-primary"
           >
             {t('common.exploreAllCategories')}

@@ -1,11 +1,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLanguage } from "../contexts/useLanguage";
+import SectionTitle from "./SectionTitle";
 import { Facebook, Instagram, Twitter } from 'lucide-react';
+import { SOCIAL_URLS } from "../constants/social";
 
 
 export default function GetInTouch() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   const contacts = [
     {
@@ -44,13 +46,13 @@ export default function GetInTouch() {
   ];
 
   const socialLinks = [
-      { icon: Facebook, href: '#', name: 'Facebook' },
-      { icon: Instagram, href: '#', name: 'Instagram' },
-      { icon: Twitter, href: '#', name: 'Twitter' }
+      { icon: Facebook, href: SOCIAL_URLS.facebook, name: t('getintouch.facebook') },
+      { icon: Instagram, href: SOCIAL_URLS.instagram, name: t('getintouch.instagram') },
+      { icon: Twitter, href: SOCIAL_URLS.twitter, name: t('getintouch.twitter') }
     ];
 
   return (
-    <section id="contact" className="bg-muted/30 mb-6">
+    <section id="contact" className="bg-muted/30 mb-6" dir={language === "ar" ? "rtl" : "ltr"}>
       <div className="container px-6 py-8 mx-auto">
         {/* Header */}
         <motion.div
@@ -58,15 +60,10 @@ export default function GetInTouch() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.8 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className={`text-center mb-16`}>
-            <h2 className="text-4xl md:text-5xl font-bold herb-gradient-text mb-4">
-              {t('getintouch.title')}
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto rounded-full"></div>
-          <p className="my-2 text-muted-foreground max-w-xl mx-auto">{t('getintouch.subtitle')}</p>
-          </div>
+          <SectionTitle title={t('getintouch.title')} align="center" className="!mb-4" />
+          <p className="mx-auto max-w-xl text-center text-muted-foreground">{t('getintouch.subtitle')}</p>
         </motion.div>
 
         {/* Contact Cards */}
@@ -133,6 +130,8 @@ export default function GetInTouch() {
         <motion.a
           key={index}
           href={social.href}
+          target="_blank"
+          rel="noopener noreferrer"
           className="
             w-12 h-12 rounded-2xl flex items-center justify-center
             bg-secondary text-foreground border border-border/60

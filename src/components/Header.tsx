@@ -3,6 +3,8 @@ import { Menu, X } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useLanguage } from '../contexts/useLanguage';
 import LanguageSwitcher from './LanguageSwitcher';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
+import { stripLangPrefix } from '../utils/localePath';
 
 const Header: React.FC = React.memo(() => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -10,132 +12,120 @@ const Header: React.FC = React.memo(() => {
   const { t, language } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const lp = useLocalizedPath();
+  const pathRest = stripLangPrefix(location.pathname);
+  const isHome = pathRest === '/' || pathRest === '';
   const navOnHero = isHome && !isScrolled;
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 48);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     if (href.startsWith('#')) {
       e.preventDefault();
-      // If we're not on home page, navigate to home first
-      if (window.location.pathname !== '/') {
-        navigate('/');
+      if (pathRest !== '/' && pathRest !== '') {
+        navigate(lp('/'));
         setTimeout(() => {
-          const element = document.querySelector(href);
-          if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-        }, 100);
+          document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 120);
       } else {
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }
   };
 
-  const navigationItems = [
+  const navigationItems: { key: string; href: string }[] = [
     { key: 'home', href: '/' },
     { key: 'categories', href: '#categories' },
     { key: 'about', href: '/about' },
-    { key: 'contact', href: '#contact' }
+    { key: 'sourcing', href: '/sourcing' },
+    { key: 'contact', href: '#contact' },
   ];
 
+  const linkClass = `rounded-lg px-2 py-2 text-xs font-semibold uppercase tracking-wide transition-colors duration-500 sm:px-2.5 lg:text-sm ${
+    navOnHero ? 'text-primary-foreground hover:bg-white/10' : 'text-foreground hover:text-primary'
+  }`;
+
+  const logoCompact = isScrolled;
+
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'header-scrolled' 
-          : 'header-transparent'
+    <header
+      className={`fixed left-0 right-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        isScrolled ? 'header-scrolled' : 'header-transparent'
       }`}
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
-      <div className={`max-w-6xl mx-auto px-6 ${isScrolled ? '' : ''}`}>
-        <div className="flex items-center justify-center h-16 md:h-[4.25rem] relative">
-          {/* Logo - Centered */}
-          <div className="absolute start-0 flex items-center gap-2 herb-scale-hover">
-            <img 
-              src="/logo.png" 
+      <div className="mx-auto max-w-6xl min-w-0 px-3 sm:px-4 md:px-6">
+        <div className="flex min-h-[3.75rem] items-center justify-between gap-2 py-2 md:h-[4.25rem] md:gap-4">
+          <Link
+            to={lp('/')}
+            className={`flex shrink-0 items-center rounded-2xl p-0.5 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+              navOnHero
+                ? 'bg-white/95 ring-2 ring-white/80 shadow-md hover:ring-primary/25'
+                : 'bg-transparent shadow-none ring-0 hover:opacity-90'
+            } ${logoCompact ? 'scale-95 md:scale-100' : 'scale-100'}`}
+            aria-label={t('home')}
+          >
+            <img
+              src="/logo.png"
               alt={t('footer.logoAlt')}
-              width={64}
-              height={64}
-              className="w-14 h-14 md:w-16 md:h-16 rounded-xl object-contain shadow-sm"
+              width={72}
+              height={72}
+              className={`rounded-xl object-contain transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                logoCompact ? 'h-9 w-9 sm:h-10 sm:w-10 md:h-11 md:w-11' : 'h-10 w-10 sm:h-11 sm:w-11 md:h-[3.25rem] md:w-[3.25rem]'
+              }`}
+              decoding="async"
+              fetchPriority="high"
             />
-          </div>
+          </Link>
 
-          {/* Desktop Navigation - Centered */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8">
-            {navigationItems.map((item) => (
-              item.href.startsWith('#') ? (
-                <a
-                  key={item.key}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  className={`transition-colors duration-300 font-semibold relative group px-3 py-2 text-sm uppercase tracking-wide ${
-                    navOnHero
-                      ? 'text-primary-foreground/95 hover:text-accent'
-                      : 'text-foreground hover:text-accent'
-                  }`}
-                >
-                  {t(item.key)}
-                  <span className="absolute bottom-0 start-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-                </a>
-              ) : (
-                <Link
-                  key={item.key}
-                  to={item.href}
-                  className={`transition-colors duration-300 font-semibold relative group px-3 py-2 text-sm uppercase tracking-wide ${
-                    navOnHero
-                      ? 'text-primary-foreground/95 hover:text-accent'
-                      : 'text-foreground hover:text-accent'
-                  }`}
-                >
-                  {t(item.key)}
-                  <span className="absolute bottom-0 start-0 w-0 h-0.5 bg-accent transition-all duration-300 group-hover:w-full" />
-                </Link>
-              )
-            ))}
+          <nav className="hidden min-w-0 flex-1 justify-center px-1 md:flex">
+            <div className="flex max-w-full flex-wrap items-center justify-center gap-x-1 gap-y-1 lg:gap-x-2">
+              {navigationItems.map((item) =>
+                item.href.startsWith('#') ? (
+                  <a key={item.key} href={item.href} onClick={(e) => handleNavClick(e, item.href)} className={linkClass}>
+                    {t(item.key)}
+                  </a>
+                ) : (
+                  <Link key={item.key} to={lp(item.href)} className={linkClass}>
+                    {t(item.key)}
+                  </Link>
+                )
+              )}
+            </div>
           </nav>
 
-          {/* Right side controls */}
-          <div className="absolute end-0 flex items-center gap-3 md:gap-4">
-            <div
-              className={
-                navOnHero
-                  ? '[&_button]:bg-primary-foreground/12 [&_button]:hover:bg-primary-foreground/20 [&_button]:text-primary-foreground [&_button]:border [&_button]:border-primary-foreground/25'
-                  : ''
-              }
-            >
-              <LanguageSwitcher />
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+            <div className={`${isScrolled ? 'hidden md:block' : ''}`}>
+              <LanguageSwitcher variant={navOnHero ? 'onHero' : 'default'} />
             </div>
-            
-            {/* Mobile menu button */}
+
             <button
-              className={`md:hidden p-2 rounded-xl transition-colors duration-200 ${
-                navOnHero ? 'hover:bg-primary-foreground/10 text-primary-foreground' : 'hover:bg-secondary text-foreground'
+              type="button"
+              className={`rounded-xl p-2.5 transition-colors duration-500 md:hidden ${
+                navOnHero ? 'text-primary-foreground hover:bg-white/10' : 'text-foreground hover:bg-muted'
               }`}
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={() => setIsMenuOpen((o) => !o)}
+              aria-expanded={isMenuOpen}
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className={`md:hidden border-t border-border/60 bg-card/98 backdrop-blur-lg ${
-            isScrolled ? 'rounded-b-2xl' : 'shadow-lg'
-          }`}>
-            <nav className="py-4 space-y-1">
-              {navigationItems.map((item) => (
+        {isMenuOpen ? (
+          <div
+            className={`border-t border-border/60 bg-card/90 py-4 backdrop-blur-2xl md:hidden ${
+              isScrolled ? 'rounded-b-2xl' : 'shadow-lg'
+            }`}
+          >
+            <nav className="flex flex-col gap-1 px-2">
+              {navigationItems.map((item) =>
                 item.href.startsWith('#') ? (
                   <a
                     key={item.key}
@@ -144,24 +134,32 @@ const Header: React.FC = React.memo(() => {
                       handleNavClick(e, item.href);
                       setIsMenuOpen(false);
                     }}
-                    className="block px-4 py-3 text-foreground hover:text-accent hover:bg-secondary/60 rounded-lg transition-colors duration-300 font-medium"
+                    className="rounded-xl px-4 py-3 font-medium text-foreground transition-colors duration-300 hover:bg-secondary"
                   >
                     {t(item.key)}
                   </a>
                 ) : (
                   <Link
                     key={item.key}
-                    to={item.href}
+                    to={lp(item.href)}
                     onClick={() => setIsMenuOpen(false)}
-                    className="block px-4 py-3 text-foreground hover:text-accent hover:bg-secondary/60 rounded-lg transition-colors duration-300 font-medium"
+                    className="rounded-xl px-4 py-3 font-medium text-foreground transition-colors duration-300 hover:bg-secondary"
                   >
                     {t(item.key)}
                   </Link>
                 )
-              ))}
+              )}
+              <div className="mt-4 border-t border-border/60 pt-4">
+                <p className="mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  {t('common.language')}
+                </p>
+                <div className="px-2">
+                  <LanguageSwitcher variant="default" />
+                </div>
+              </div>
             </nav>
           </div>
-        )}
+        ) : null}
       </div>
     </header>
   );

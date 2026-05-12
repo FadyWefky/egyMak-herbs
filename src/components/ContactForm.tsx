@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Send, User, Mail, MessageSquare, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '../contexts/useLanguage';
 import { sendContactEmail } from '../utils/emailService';
+import { moderateContactText } from '../utils/contentModeration';
 
 interface FormData {
   name: string;
@@ -39,6 +40,14 @@ const ContactForm: React.FC = () => {
 
     if (!formData.message.trim()) {
       newErrors.message = t('contactForm.errorMessage');
+    } else {
+      const mod = moderateContactText(formData.message);
+      if (!mod.ok) {
+        newErrors.message =
+          mod.reason === 'inappropriate'
+            ? t('contactForm.errorMessageInappropriate')
+            : t('contactForm.errorMessageModeration');
+      }
     }
 
     setErrors(newErrors);
@@ -55,18 +64,24 @@ const ContactForm: React.FC = () => {
     setStatus({ type: 'loading', message: t('contactForm.sending') });
 
     try {
-      const success = await sendContactEmail(formData);
+      const result = await sendContactEmail(formData);
 
-      if (success) {
+      if (result === 'sent') {
         setStatus({
           type: 'success',
-          message: t('contactForm.successMessage'),
+          message: t('contactForm.successMessageSent'),
         });
-
+        setFormData({ name: '', email: '', message: '' });
+        setErrors({});
+      } else if (result === 'mailto') {
+        setStatus({
+          type: 'success',
+          message: t('contactForm.successMessageMailto'),
+        });
         setFormData({ name: '', email: '', message: '' });
         setErrors({});
       } else {
-        throw new Error('Failed to open email client');
+        throw new Error('Failed to send');
       }
     } catch (error) {
       console.error('Error sending email:', error);

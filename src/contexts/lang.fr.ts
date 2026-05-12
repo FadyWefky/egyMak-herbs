@@ -12,6 +12,7 @@ export const fr = {
     exploreAllCategories: "Explorer toutes les catégories",
     backToHome: "Retour à l’accueil",
     copyright: "© 2026 EGYMAK. Tous droits réservés.",
+    language: "Langue",
   },
   hero: {
     badge: "100 % naturel et biologique",
@@ -41,11 +42,12 @@ export const fr = {
     shippingInfo: "Livraison",
     returns: "Retours",
     support: "Assistance",
+    sourcing: "Qualité & origine",
     paymentMethods: "Moyens de paiement",
     privacyPolicy: "Politique de confidentialité",
     termsOfService: "Conditions d’utilisation",
     cookiePolicy: "Politique des cookies",
-    locationShort: "Le Caire, Égypte",
+    locationShort: "Ibchaway, Fayoum, Égypte",
     logoAlt: "Logo EGYMAK — Herbes égyptiennes premium",
   },
   contactForm: {
@@ -55,15 +57,20 @@ export const fr = {
     messagePlaceholder: "Votre message…",
     send: "Envoyer",
     sending: "Envoi en cours…",
-    fallbackHint: "Ou contactez-nous directement : egymak@gmail.com",
+    fallbackHint: "Ou écrivez-nous directement : egymak.mi@gmail.com",
     errorName: "Le nom est requis",
     errorEmailRequired: "L’e-mail est requis",
     errorEmailInvalid: "Format d’e-mail invalide",
     errorMessage: "Le message est requis",
-    successMessage:
-      "Votre client mail s’est ouvert ! Veuillez envoyer le message depuis celui-ci.",
+    successMessageSent: "Merci — votre message a bien été envoyé.",
+    successMessageMailto:
+      "Votre application mail devrait s’ouvrir avec votre message. Appuyez sur Envoyer dans cette fenêtre pour nous le transmettre.",
     errorSend:
       "Échec de l’envoi. Réessayez ou contactez-nous directement.",
+    errorMessageModeration:
+      "Votre message semble automatisé ou difficile à lire. Utilisez des phrases normales et moins de liens.",
+    errorMessageInappropriate:
+      "Ce message ne peut pas être envoyé. Retirez le contenu inapproprié et réessayez.",
   },
   herbModal: {
     description: "Description",
@@ -102,56 +109,97 @@ export const fr = {
     products: "produits",
     listing: "{{count}} produits",
     back: "Retour à l’accueil",
+    pickCategory: "Parcourir par type d’herbe",
+    pickGroup: "Choisir une famille",
+    groups: {
+      paper: "Papier & cuisine",
+      perfume: "Aromatique & parfumerie",
+      other: "Médicinal & autres",
+    },
+    groupsSubtitle: {
+      paper: "Infusions, herbes de cuisine et plantes pour thé.",
+      perfume: "Plantes riches en huiles essentielles pour les parfums.",
+      other: "Herbes de bien-être et usage traditionnel.",
+    },
   },
   healthBenefitsPage: {
     title: "Bienfaits pour la santé",
     back: "Retour à l’accueil",
     subtitle: "Découvrez comment nos herbes soutiennent votre bien-être",
   },
+  sourcingPage: {
+    metaTitle: "Qualité, approvisionnement et traçabilité | EGYMAK",
+    title: "Du sol égyptien à votre étagère",
+    subtitle:
+      "Comment nous sélectionnons, séchons et conditionnons herbes aromatiques et médicinales tout en soutenant les producteurs locaux.",
+    c1Title: "Partenariats avec les producteurs",
+    c1Body:
+      "Nous travaillons avec des cultivateurs du Fayoum et d’Égypte qui appliquent des pratiques raisonnables et récoltent au bon stade de maturité.",
+    c2Title: "Séchage et stockage maîtrisés",
+    c2Body:
+      "Température, humidité et lumière sont contrôlées pour préserver les huiles volatiles — ce qui donne leur parfum aux herbes.",
+    c3Title: "Emballage transparent",
+    c3Body:
+      "Étiquettes claires, formats pratiques et conseils de conservation à domicile pour des résultats réguliers en cuisine et en infusions.",
+    pLead:
+      "Les herbes sont un produit agricole : météo et saisons créent des variations naturelles. Nous visons une qualité stable et une communication claire lorsqu’un lot diffère du précédent.",
+  },
   testimonials: {
     title: "Avis clients",
     subtitle:
-      "Découvrez ce que nos clients disent de leur expérience avec EGYMAK",
+      "Retours de clients qui utilisent nos herbes au quotidien en cuisine et bien-être.",
+    moderationNote:
+      "Les extraits sont sélectionnés pour rester sobres et proches des retours habituels, sans promesses excessives.",
     statHappyCustomers: "Clients satisfaits",
     statHerbVarieties: "Variétés d’herbes",
     statCustomerRating: "Note clients",
     statYearsExperience: "Années d’expérience",
+    statHappyCustomersValue: "500+",
+    statHerbVarietiesValue: "50+",
+    statCustomerRatingValue: "4,7",
+    statYearsExperienceValue: "5+",
     items: [
       {
         name: "Fatima Ahmed",
         location: "Le Caire, Égypte",
-        text: "Les herbes EGYMAK ont transformé mon quotidien. Excellente qualité et bienfaits remarquables.",
+        text: "Qualité régulière et parfum frais. J’utilise surtout camomille et gingembre pour une tisane du soir.",
         herb: "Camomille et gingembre",
+        rating: 5,
       },
       {
         name: "Mohamed Ali",
         location: "Alexandrie, Égypte",
-        text: "J’utilise les herbes EGYMAK depuis deux ans. Goût exceptionnel et effets positifs sur la santé.",
+        text: "Plusieurs commandes sur deux ans. Goût et emballage fiables, livraison sans souci.",
         herb: "Menthe et lavande",
+        rating: 5,
       },
       {
         name: "Sara Mahmoud",
         location: "Louxor, Égypte",
-        text: "Le curcuma et le basilic EGYMAK m’ont beaucoup aidée pour la digestion et l’immunité.",
+        text: "Curcuma et basilic conviennent bien à notre cuisine. Bon rapport qualité-prix pour des herbes sèches encore parfumées.",
         herb: "Curcuma et basilic",
+        rating: 4,
       },
       {
         name: "Ahmed Hassan",
         location: "Hurghada, Égypte",
-        text: "Qualité irréprochable et service client au top. Herbes fraîches et bénéfiques.",
+        text: "Échanges clairs quand j’avais une question sur une commande. Sauge et thym sont ceux que j’utilise le plus.",
         herb: "Sauge et thym",
+        rating: 5,
       },
       {
         name: "Nour El-Din",
         location: "Assouan, Égypte",
-        text: "Herbes 100 % naturelles d’Égypte. Je recommande à tous ceux qui visent une santé naturelle.",
+        text: "Produits naturels d’Égypte, sans promesse miraculeuse. Cannelle et mélisse surtout pour les infusions.",
         herb: "Cannelle et mélisse",
+        rating: 4,
       },
       {
         name: "Mariam Saad",
         location: "Minya, Égypte",
-        text: "Excellente expérience avec EGYMAK : détente et meilleur sommeil.",
+        text: "Camomille et lavande font partie de ma routine du soir. Goût doux, pas d’arrière-goût désagréable.",
         herb: "Camomille et lavande",
+        rating: 5,
       },
     ] as TestimonialItem[],
   },
@@ -290,6 +338,7 @@ export const fr = {
   home: "Accueil",
   categories: "Catégories",
   about: "À propos",
+  sourcing: "Qualité & origine",
   contact: "Contact",
   cart: "Panier",
   heroTitle: "Herbes Naturelles Premium",
@@ -316,6 +365,32 @@ export const fr = {
   customerCare: "Service Client",
   followUs: "Suivez-nous",
   aboutTitle: "À propos d'Egymak",
+  aboutPage: {
+    subtitle: "Des racines du Fayoum aux tables du monde",
+    stat1Value: "50+",
+    stat1Label: "Herbes référencées dans notre catalogue",
+    stat2Value: "4",
+    stat2Label: "Gammes clés que nous suivons toute l’année",
+    stat3Value: "100%",
+    stat3Label: "Priorité au naturel dans notre approvisionnement",
+    pillar1Title: "Lots traçables",
+    pillar1Body:
+      "Nous documentons l’origine, la fenêtre de récolte et le séchage pour que chacun sache ce qu’il infuse.",
+    pillar2Title: "Le sensoriel d’abord",
+    pillar2Body:
+      "Arôme, couleur et granulomètre comptent autant que les certificats — nous goûtons et retouchons avant validation.",
+    pillar3Title: "Liens avec les producteurs",
+    pillar3Body:
+      "Des cadences justes et des enlèvements fiables aident les petites fermes à investir après récolte, pas seulement en volume.",
+    timeline1: "Les débuts — séchoirs pilotes et formalités d’export dans la vallée du Nil.",
+    timeline2: "L’expansion — co-packing pour distributeurs MENA et Europe.",
+    timeline3: "Aujourd’hui — boutique directe, photos QC plus serrées, boucles d’avis plus rapides.",
+    quote: "Les herbes doivent goûter la saison — pas un slogan marketing.",
+    quoteRole: "Vision produit EGYMAK",
+    beltTitle: "Visitez les champs (virtuellement)",
+    beltBody:
+      "Nous publions des notes de saison sur le climat et la pluie — suivez la page Qualité & origine pour les nouveautés.",
+  },
   aboutParagraph1:
     "Egymak est une entreprise leader dans le domaine des plantes aromatiques et médicinales, dédiée à fournir des produits naturels de haute qualité issus des riches terres agricoles d'Égypte. Engagée pour la durabilité et l'innovation, Egymak collabore avec des agriculteurs locaux pour garantir que les meilleures herbes et plantes atteignent les marchés mondiaux.",
   aboutParagraph2:
@@ -334,11 +409,11 @@ export const fr = {
     subtitlePhone:
       "Prêt à commander ? Appelez-nous dès maintenant pour un achat rapide et facile ! Notre équipe est à votre disposition.",
     location: "Emplacement",
-    address: "123 rue des Herbes, Le Caire, Égypte",
+    address: "Ibchaway, Fayoum, Égypte",
     phone: "Téléphone",
     phoneNumber: "+201032013000",
     email: "E-mail",
-    emailAddress: "egymak@gmail.com",
+    emailAddress: "egymak.mi@gmail.com",
     facebook: "Facebook",
     instagram: "Instagram",
     twitter: "Twitter",

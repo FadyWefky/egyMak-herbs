@@ -2,8 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* EGY MAC–inspired design system: navy, white, sky accent. All theme colors use HSL tokens. */
-
 @layer base {
   :root {
     --background: 210 40% 99%;
@@ -20,14 +18,13 @@
     --primary-foreground: 0 0% 100%;
 
     /* Soft cool gray-blue surfaces */
-    --secondary: 210 35% 94%;
+    --secondary: 42 42% 94%;
     --secondary-foreground: 210 55% 16%;
 
-    --muted: 210 28% 96%;
+    --muted: 210 26% 96%;
     --muted-foreground: 210 12% 42%;
 
-    /* Sky accent */
-    --accent: 197 100% 45%;
+    --accent: 152 38% 38%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -35,21 +32,22 @@
 
     --border: 210 22% 88%;
     --input: 210 22% 90%;
-    --ring: 197 100% 45%;
+    --ring: 152 38% 38%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(210, 82%, 22%) 0%, hsl(210, 75%, 28%) 100%);
-    --gradient-secondary: linear-gradient(135deg, hsl(210, 35%, 94%) 0%, hsl(210, 40%, 97%) 100%);
-    --gradient-hero: linear-gradient(120deg, hsl(210, 82%, 18%) 0%, hsl(210, 70%, 26%) 45%, hsl(197, 100%, 42%) 100%);
+    --gradient-primary: linear-gradient(135deg, hsl(210, 82%, 22%) 0%, hsl(152, 32%, 32%) 55%, hsl(28, 42%, 40%) 100%);
+    --gradient-secondary: linear-gradient(135deg, hsl(42, 45%, 94%) 0%, hsl(210, 35%, 97%) 100%);
+    --gradient-hero: linear-gradient(120deg, hsl(210, 82%, 18%) 0%, hsl(152, 30%, 28%) 50%, hsl(32, 44%, 36%) 100%);
 
-    --header-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --scroll-transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --header-transition: background 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1), backdrop-filter 0.45s ease;
+    --scroll-transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 
     --shadow-soft: 0 4px 24px hsla(210, 82%, 22%, 0.08);
     --shadow-medium: 0 12px 40px hsla(210, 82%, 22%, 0.12);
     --shadow-strong: 0 20px 50px hsla(210, 82%, 22%, 0.16);
 
-    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    --transition-bounce: all 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --radius: 0.875rem;
 
@@ -60,7 +58,7 @@
     --sidebar-accent: 210 30% 95%;
     --sidebar-accent-foreground: 210 55% 16%;
     --sidebar-border: 210 22% 90%;
-    --sidebar-ring: 197 100% 45%;
+    --sidebar-ring: 152 38% 38%;
   }
 
   .dark {
@@ -82,7 +80,7 @@
     --muted: 210 28% 16%;
     --muted-foreground: 210 15% 65%;
 
-    --accent: 197 90% 48%;
+    --accent: 152 40% 46%;
     --accent-foreground: 210 82% 12%;
 
     --destructive: 0 62.8% 30.6%;
@@ -90,7 +88,7 @@
 
     --border: 210 28% 20%;
     --input: 210 28% 20%;
-    --ring: 197 100% 50%;
+    --ring: 152 36% 48%;
 
     --sidebar-background: 210 45% 6%;
     --sidebar-foreground: 210 25% 92%;
@@ -99,7 +97,7 @@
     --sidebar-accent: 210 30% 14%;
     --sidebar-accent-foreground: 210 25% 92%;
     --sidebar-border: 210 28% 18%;
-    --sidebar-ring: 197 100% 50%;
+    --sidebar-ring: 152 40% 46%;
   }
 }
 
@@ -115,7 +113,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-feature-settings: 'kern' 1, 'liga' 1, 'calt' 1;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -127,7 +125,7 @@
   h1, h2, h3, h4, h5, h6,
   .font-heading,
   [class*="font-heading"] {
-    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.15;
@@ -138,7 +136,7 @@
   p, span, div, a, button, input, textarea, select, label,
   .font-body,
   [class*="font-body"] {
-    font-family: 'Montserrat', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Manrope', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   h1 {
@@ -185,15 +183,32 @@
 
 @layer utilities {
   .font-heading {
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
   }
 
   .font-body {
-    font-family: 'Montserrat', system-ui, sans-serif;
+    font-family: 'Manrope', system-ui, sans-serif;
+  }
+
+  .section-heading-display {
+    font-family: 'Manrope', system-ui, sans-serif;
+    color: hsl(var(--primary));
+    letter-spacing: -0.03em;
+    text-shadow:
+      0 1px 0 hsl(0 0% 100% / 0.92),
+      0 10px 36px hsl(152 30% 25% / 0.12);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 
   .section-eyebrow {
-    @apply text-xs font-semibold uppercase tracking-[0.2em] text-accent;
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-[hsl(152,36%,34%)];
   }
 }
 
@@ -216,14 +231,23 @@
   }
 
   .herb-gradient-text {
-    background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+    background: linear-gradient(
+      90deg,
+      hsl(210 82% 18%) 0%,
+      hsl(210 55% 28%) 52%,
+      hsl(215 35% 34%) 100%
+    );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    color: transparent;
+    padding-bottom: 0.06em;
+    filter: drop-shadow(0 1px 0 hsl(0 0% 100% / 0.65));
   }
 
   .header-scrolled {
-    @apply bg-card/95 backdrop-blur-md shadow-lg border border-border/60 mt-3 rounded-2xl mx-auto w-[calc(100%-1.5rem)] max-w-6xl;
+    @apply mx-auto mt-2 w-[calc(100%-0.75rem)] max-w-6xl overflow-hidden rounded-2xl border border-border/35 shadow-[0_12px_40px_-8px_rgba(15,23,42,0.12)] backdrop-blur-2xl sm:w-[calc(100%-1rem)];
+    background: hsl(210 40% 99% / 0.52);
     transition: var(--header-transition);
   }
 
@@ -232,7 +256,6 @@
     transition: var(--header-transition);
   }
 
-  /* macOS-inspired surfaces: soft blur, hairline border, subtle inner highlight */
   .mac-panel {
     @apply rounded-[11px] border border-border/70 bg-card/90 backdrop-blur-xl;
     box-shadow:
@@ -271,7 +294,8 @@
   }
 
   .herb-card {
-    @apply mac-panel border-border/60 p-6 transition-all duration-300 ease-out;
+    @apply mac-panel border-border/60 p-6 transition-all duration-500;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .herb-card:hover {
@@ -281,7 +305,8 @@
 
   .herb-button-primary {
     background: var(--gradient-primary);
-    @apply text-primary-foreground px-6 py-3 rounded-xl font-semibold transition-all duration-300 ease-out inline-flex items-center justify-center gap-2;
+    @apply text-primary-foreground px-6 py-3 rounded-xl font-semibold transition-all duration-500 inline-flex items-center justify-center gap-2;
+    transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
     box-shadow: var(--shadow-soft);
   }
 

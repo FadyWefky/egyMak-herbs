@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft, Heart, Brain, Shield, Zap, Leaf, Users, Eye } from 'lucide-react';
+import { Eye } from 'lucide-react';
 import { healthBenefitsMapping, Herb } from '../data/herbs';
 import { useLanguage } from '../contexts/useLanguage';
 import HerbModal from '../components/HerbModal';
+import PageHero from '../components/PageHero';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const HealthBenefits: React.FC = () => {
   const { language, t, getHerbName, getHerbDescription, getHerbBenefits } = useLanguage();
   const navigate = useNavigate();
+  const lp = useLocalizedPath();
   const { benefitId } = useParams<{ benefitId: string }>();
   const [selectedHerb, setSelectedHerb] = useState<Herb | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,18 +29,6 @@ const HealthBenefits: React.FC = () => {
     setSelectedHerb(null);
   };
 
-  const getIcon = (id: string) => {
-    const icons = {
-      'heart-health': Heart,
-      'brain-boost': Brain,
-      'immune-support': Shield,
-      'natural-energy': Zap,
-      antioxidants: Leaf,
-      'overall-wellness': Users,
-    };
-    return icons[id as keyof typeof icons] || Heart;
-  };
-
   if (!benefitData || !benefitId) {
     return (
       <div
@@ -46,7 +37,7 @@ const HealthBenefits: React.FC = () => {
       >
         <div className="mac-panel max-w-md w-full p-10 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">{t('healthBenefitsDetail.notFound')}</h1>
-          <button type="button" onClick={() => navigate('/')} className="herb-button-primary">
+          <button type="button" onClick={() => navigate(lp('/'))} className="herb-button-primary">
             {t('healthBenefitsDetail.backHome')}
           </button>
         </div>
@@ -54,37 +45,18 @@ const HealthBenefits: React.FC = () => {
     );
   }
 
-  const IconComponent = getIcon(benefitId);
   const title = t(`healthBenefits.cards.${benefitId}.title`);
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground py-16">
-        <div className="container mx-auto px-4">
-          <button
-            type="button"
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 mb-6"
-          >
-            <ArrowLeft className="w-5 h-5 rtl:rotate-180" />
-            <span>{t('healthBenefitsDetail.backHome')}</span>
-          </button>
+      <PageHero
+        title={title}
+        subtitle={t('healthBenefitsDetail.discoverCount', { count: benefitData.herbs.length })}
+        backLabel={t('healthBenefitsDetail.backHome')}
+        onBack={() => navigate(lp('/'))}
+      />
 
-          <div className="flex flex-col sm:flex-row sm:items-center gap-6 mb-6">
-            <div className="w-20 h-20 bg-white/20 rounded-2xl flex items-center justify-center shrink-0">
-              <IconComponent className="w-10 h-10 text-white" />
-            </div>
-            <div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-2">{title}</h1>
-              <p className="text-xl text-primary-foreground/80">
-                {t('healthBenefitsDetail.discoverCount', { count: benefitData.herbs.length })}
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="py-16">
+      <div className="py-10 sm:py-16">
         <div className="container mx-auto px-4">
           {benefitData.herbs.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">

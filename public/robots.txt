@@ -1,20 +1,17 @@
 User-agent: *
 Allow: /
 
-# Sitemap
 Sitemap: https://egymak.com/sitemap.xml
 
-# Crawl-delay
 Crawl-delay: 1
 
-# Disallow admin areas (if any)
 Disallow: /admin/
 Disallow: /api/
 Disallow: /private/
 
-# Allow important pages
 Allow: /products
 Allow: /categories
 Allow: /health-benefits/
 Allow: /about
+Allow: /sourcing
 Allow: /contact

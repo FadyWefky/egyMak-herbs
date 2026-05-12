@@ -1,11 +1,20 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+  useParams,
+  useLocation,
+} from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Hero from '../components/Hero';
 import ScrollToTop from '../components/ScrollToTop';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useLanguage } from '../contexts/useLanguage';
+import { isSupportedLocale, withLocalePrefix } from '../utils/localePath';
 
 const About = React.lazy(() => import('../components/About'));
 const Categories = React.lazy(() => import('../components/Categories'));
@@ -25,6 +34,7 @@ const Privacy = React.lazy(() => import('./Privacy'));
 const Terms = React.lazy(() => import('./Terms'));
 const Cookies = React.lazy(() => import('./Cookies'));
 const NotFound = React.lazy(() => import('./NotFound'));
+const Sourcing = React.lazy(() => import('./Sourcing'));
 
 const PageLoadingSpinner = () => {
   const { t } = useLanguage();
@@ -46,13 +56,29 @@ const PageLoadingSpinner = () => {
   );
 };
 
-function Layout({ children }: { children: React.ReactNode }) {
+function LangShell() {
+  const { lang } = useParams<{ lang: string }>();
+  const { setLanguage } = useLanguage();
+  const location = useLocation();
+
+  useEffect(() => {
+    if (lang && isSupportedLocale(lang)) setLanguage(lang);
+  }, [lang, setLanguage]);
+
+  if (!lang || !isSupportedLocale(lang)) {
+    return <Navigate to={withLocalePrefix('en', location.pathname)} replace />;
+  }
+
+  return <Outlet />;
+}
+
+function AppLayout() {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Header />
-      <main className="flex-1">
+      <main className="flex-1 pt-16 md:pt-[4.5rem]">
         <Suspense fallback={<PageLoadingSpinner />}>
-          {children}
+          <Outlet />
         </Suspense>
       </main>
       <Footer />
@@ -60,160 +86,77 @@ function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <About />
+      </Suspense>
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <Categories />
+      </Suspense>
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <FeaturedProducts />
+      </Suspense>
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <HealthBenefits />
+      </Suspense>
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <HerbStats />
+      </Suspense>
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <Testimonials />
+      </Suspense>
+      <Suspense fallback={<PageLoadingSpinner />}>
+        <GetInTouch />
+      </Suspense>
+    </>
+  );
+}
+
+function LegacyHealthBenefitRedirect() {
+  const { benefitId } = useParams<{ benefitId: string }>();
+  return <Navigate to={`/en/health-benefits/${benefitId ?? ''}`} replace />;
+}
+
 const Index = () => {
   return (
     <Router>
       <ScrollToTop />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Hero />
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <About />
-              </Suspense>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Categories />
-              </Suspense>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <FeaturedProducts />
-              </Suspense>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <HealthBenefits />
-              </Suspense>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <HerbStats />
-              </Suspense>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Testimonials />
-              </Suspense>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <GetInTouch />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/about"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <About />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/categories"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <CategoriesPage />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/products"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <ProductsPage />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/health-benefits/:benefitId"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <HealthBenefitsPage />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/faq"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <FAQ />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/shipping"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Shipping />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/returns"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Returns />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/support"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Support />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/privacy"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Privacy />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/terms"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Terms />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="/cookies"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <Cookies />
-              </Suspense>
-            </Layout>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <Layout>
-              <Suspense fallback={<PageLoadingSpinner />}>
-                <NotFound />
-              </Suspense>
-            </Layout>
-          }
-        />
+        <Route path="/" element={<Navigate to="/en" replace />} />
+        <Route path="/about" element={<Navigate to="/en/about" replace />} />
+        <Route path="/categories" element={<Navigate to="/en/categories" replace />} />
+        <Route path="/products" element={<Navigate to="/en/products" replace />} />
+        <Route path="/sourcing" element={<Navigate to="/en/sourcing" replace />} />
+        <Route path="/faq" element={<Navigate to="/en/faq" replace />} />
+        <Route path="/shipping" element={<Navigate to="/en/shipping" replace />} />
+        <Route path="/returns" element={<Navigate to="/en/returns" replace />} />
+        <Route path="/support" element={<Navigate to="/en/support" replace />} />
+        <Route path="/privacy" element={<Navigate to="/en/privacy" replace />} />
+        <Route path="/terms" element={<Navigate to="/en/terms" replace />} />
+        <Route path="/cookies" element={<Navigate to="/en/cookies" replace />} />
+        <Route path="/health-benefits/:benefitId" element={<LegacyHealthBenefitRedirect />} />
+
+        <Route path="/:lang" element={<LangShell />}>
+          <Route element={<AppLayout />}>
+            <Route index element={<HomePage />} />
+            <Route path="about" element={<About />} />
+            <Route path="sourcing" element={<Sourcing />} />
+            <Route path="categories" element={<CategoriesPage />} />
+            <Route path="products" element={<ProductsPage />} />
+            <Route path="health-benefits/:benefitId" element={<HealthBenefitsPage />} />
+            <Route path="faq" element={<FAQ />} />
+            <Route path="shipping" element={<Shipping />} />
+            <Route path="returns" element={<Returns />} />
+            <Route path="support" element={<Support />} />
+            <Route path="privacy" element={<Privacy />} />
+            <Route path="terms" element={<Terms />} />
+            <Route path="cookies" element={<Cookies />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+        </Route>
       </Routes>
     </Router>
   );

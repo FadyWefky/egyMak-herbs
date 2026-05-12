@@ -1,13 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Search, Grid, List, Star, Eye, Heart } from 'lucide-react';
+import { Search, Grid, List, Star, Eye, Heart } from 'lucide-react';
 import { herbsData, Herb } from '../data/herbs';
 import { useLanguage } from '../contexts/useLanguage';
 import HerbModal from '../components/HerbModal';
+import PageHero from '../components/PageHero';
+import { useLocalizedPath } from '../hooks/useLocalizedPath';
 
 const Products: React.FC = () => {
   const { language, t, getHerbName, getHerbDescription } = useLanguage();
   const navigate = useNavigate();
+  const lp = useLocalizedPath();
   const [selectedHerb, setSelectedHerb] = useState<Herb | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -67,20 +70,12 @@ const Products: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-background" dir={language === 'ar' ? 'rtl' : 'ltr'}>
-      <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground py-16">
-        <div className="container mx-auto px-4">
-          <button
-            type="button"
-            onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 mb-6"
-          >
-            <ArrowLeft className="w-5 h-5 rtl:rotate-180" />
-            <span>{t('common.backToHome')}</span>
-          </button>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">{t('products.title')}</h1>
-          <p className="text-xl text-primary-foreground/80 max-w-2xl">{t('products.subtitle')}</p>
-        </div>
-      </div>
+      <PageHero
+        title={t('products.title')}
+        subtitle={t('products.subtitle')}
+        backLabel={t('common.backToHome')}
+        onBack={() => navigate(lp('/'))}
+      />
 
       <div className="py-8 bg-secondary/30">
         <div className="container mx-auto px-4">

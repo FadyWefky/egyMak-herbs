@@ -6,7 +6,6 @@ interface LazyImageProps {
   className?: string;
   fallback?: string;
   onError?: () => void;
-  /** Above-the-fold: load immediately (better LCP, no layout wait for observer). */
   priority?: boolean;
 }
 
